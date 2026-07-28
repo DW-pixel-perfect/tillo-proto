@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TILLO JOURNAL — Нативная интеграция</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;600;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#111111;
+    --muted:#6b6f7a;
+    --lav:#c9cffb;
+    --lav-deep:#9aa3ee;
+    --lav-text:#2c2f66;
+    --pink:#ffc6e4;
+    --mint:#bdeecb;
+    --card-bg:#f4f4f2;
+    --white:#ffffff;
+    --maxw:1200px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{
+    font-family:'JetBrains Mono', monospace;
+    color:var(--ink);
+    background:var(--white);
+    line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3,.wordmark{
+    font-family:'Unbounded', sans-serif;
+    font-weight:800;
+    letter-spacing:-0.01em;
+    line-height:0.98;
+  }
+  a{color:inherit;text-decoration:none;}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 40px;}
+  .eyebrow{
+    display:flex;align-items:center;gap:8px;
+    font-size:13px;color:var(--muted);
+    margin-bottom:12px;
+  }
+  .eyebrow::before{
+    content:"";width:8px;height:8px;border-radius:2px;
+    background:var(--lav-deep);display:inline-block;
+  }
+  .pill{
+    display:inline-block;
+    background:var(--lav-deep);
+    color:var(--lav-text);
+    font-family:'JetBrains Mono',monospace;
+    font-weight:600;
+    font-size:14px;
+    padding:14px 28px;
+    border-radius:999px;
+    border:none;
+    cursor:pointer;
+  }
+  .pill.dark{background:var(--ink);color:#fff;}
+  .pill.ghost{background:var(--white);border:1px solid #e2e2e6;color:var(--ink);}
+
+  header{
+    position:sticky;top:0;z-index:50;
+    background:rgba(255,255,255,0);
+    transition:background .25s ease, box-shadow .25s ease, backdrop-filter .25s ease;
+  }
+  header.scrolled{
+    background:rgba(255,255,255,0.86);
+    backdrop-filter:blur(10px);
+    -webkit-backdrop-filter:blur(10px);
+    box-shadow:0 1px 0 rgba(17,17,17,0.08);
+  }
+  .nav{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:28px 0;
+  }
+  .logo{font-family:'Unbounded',sans-serif;font-weight:800;font-size:18px;}
+  .nav ul{list-style:none;display:flex;gap:32px;font-size:13px;}
+
+  section{padding:90px 0;}
+
+  .page-hero{background:linear-gradient(135deg,#eef0fb 0%, var(--lav) 130%);padding-bottom:70px;}
+  .page-hero .wordmark{font-size:clamp(48px,8vw,96px);color:var(--ink);margin-top:30px;}
+
+  .about-grid{
+    display:grid;grid-template-columns:1fr 1.4fr;gap:40px;align-items:start;
+  }
+  .about-grid h2{font-size:clamp(26px,4vw,34px);}
+  .about-grid p{max-width:460px;font-size:15px;}
+
+  .perks h2{font-size:clamp(26px,4vw,34px);margin-bottom:40px;max-width:260px;}
+  .perk-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+  .perk-card{
+    background:var(--card-bg);border-radius:16px;padding:24px;
+  }
+  .perk-card h3{font-family:'JetBrains Mono',monospace;font-weight:600;font-size:15px;margin-bottom:12px;}
+  .perk-card p{font-size:13px;color:var(--muted);}
+
+  .process h2{font-size:clamp(26px,4vw,34px);margin-bottom:40px;max-width:260px;}
+  .process-layout{display:grid;grid-template-columns:1fr 2fr;gap:40px;}
+  .process-lede{font-size:13px;color:var(--muted);max-width:260px;}
+  .process-list{border-top:1px solid #e7e7ec;}
+  .process-item{
+    border-bottom:1px solid #e7e7ec;
+    padding:24px 0;
+    display:grid;grid-template-columns:1fr 1.4fr;gap:24px;
+  }
+  .process-item h3{font-family:'JetBrains Mono',monospace;font-weight:600;font-size:15px;}
+  .process-item p{font-size:13px;color:var(--muted);}
+
+  .examples h2{font-size:clamp(26px,4vw,34px);margin-bottom:40px;}
+  .examples-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;}
+  .example .img{
+    width:100%;aspect-ratio:3/4;border-radius:16px;background:var(--card-bg);
+    background-size:cover;background-position:center;margin-bottom:14px;
+  }
+  .example .name{font-weight:600;margin-bottom:6px;}
+  .example .metric{font-size:12px;color:var(--muted);}
+
+  .pricing h2{font-size:clamp(26px,4vw,34px);margin-bottom:8px;}
+  .pricing-lede{font-size:13px;color:var(--muted);max-width:320px;margin-bottom:40px;}
+  .price-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-bottom:36px;}
+  .price-card{
+    background:var(--card-bg);border-radius:20px;padding:28px;
+    display:flex;flex-direction:column;min-height:340px;
+  }
+  .price-card.featured{background:var(--ink);color:#fff;}
+  .price-card.featured .muted{color:rgba(255,255,255,0.65);}
+  .price-card h3{font-family:'Unbounded',sans-serif;font-weight:600;font-size:18px;margin-bottom:14px;}
+  .price-card .desc{font-size:12px;color:var(--muted);margin-bottom:18px;flex:1;}
+  .price-card.featured .desc{color:rgba(255,255,255,0.75);}
+  .price-card ul{list-style:none;font-size:12px;margin-bottom:18px;}
+  .price-card li{padding:4px 0;}
+  .price-card .price{font-family:'Unbounded',sans-serif;font-weight:800;font-size:26px;}
+  .price-cta{text-align:center;}
+
+  .why h2{font-size:clamp(26px,4vw,34px);margin-bottom:40px;max-width:300px;}
+
+  .other-formats h2{font-size:clamp(26px,4vw,34px);margin-bottom:40px;max-width:320px;}
+  .other-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;}
+  .other-card{
+    background:var(--card-bg);border-radius:16px;padding:22px;
+  }
+  .other-card h3{font-family:'JetBrains Mono',monospace;font-weight:600;font-size:14px;margin-bottom:10px;}
+  .other-card p{font-size:12px;color:var(--muted);}
+
+  .cta{
+    text-align:center;padding:120px 0;
+    background:linear-gradient(180deg,#ffffff 0%, var(--lav) 100%);
+  }
+  .cta h2{font-size:clamp(36px,6vw,64px);margin-bottom:20px;}
+  .cta p{font-size:14px;color:var(--muted);margin-bottom:32px;}
+
+  footer{
+    background:linear-gradient(120deg,var(--mint) 0%, var(--lav) 60%);
+    padding-top:80px;
+  }
+  .footer-top{
+    display:grid;grid-template-columns:1fr 1.4fr 1fr;gap:32px;
+    padding-bottom:70px;
+  }
+  .footer-top h4{font-size:13px;font-weight:600;margin-bottom:16px;}
+  .footer-top ul{list-style:none;font-size:13px;}
+  .footer-top li{padding:5px 0;}
+  .footer-mid{text-align:center;}
+  .footer-mid .mail{font-family:'Unbounded',sans-serif;font-weight:800;font-size:30px;margin-bottom:14px;}
+  .footer-mid p{font-size:13px;color:var(--lav-text);margin-bottom:20px;}
+  .footer-wordmark{font-size:clamp(40px,9vw,110px);padding:40px 0 0;}
+  .team{
+    display:grid;grid-template-columns:repeat(3,1fr);gap:32px;
+    padding:50px 0 40px;
+  }
+  .team .member{text-align:center;}
+  .team .avatar{
+    width:110px;height:110px;border-radius:50%;background:var(--card-bg);
+    margin:0 auto 16px;background-size:cover;background-position:center;
+  }
+  .team .name{font-weight:600;font-size:15px;margin-bottom:6px;}
+  .team .role{font-size:12px;color:var(--lav-text);max-width:220px;margin:0 auto 16px;}
+  .legal{
+    display:flex;justify-content:space-between;font-size:11px;color:var(--lav-text);
+    padding:24px 0;flex-wrap:wrap;gap:8px;
+  }
+
+  body.modal-open{overflow:hidden;}
+  .modal-overlay{
+    position:fixed;inset:0;background:rgba(17,17,17,0.45);
+    display:flex;align-items:center;justify-content:center;
+    z-index:200;opacity:0;pointer-events:none;
+    transition:opacity .2s ease;padding:20px;
+  }
+  .modal-overlay.open{opacity:1;pointer-events:auto;}
+  .modal{
+    background:#fff;border-radius:20px;max-width:440px;width:100%;
+    padding:40px;position:relative;max-height:90vh;overflow-y:auto;
+    transform:translateY(12px);transition:transform .2s ease;
+  }
+  .modal-overlay.open .modal{transform:translateY(0);}
+  .modal-close{
+    position:absolute;top:18px;right:18px;width:32px;height:32px;
+    background:var(--card-bg);border:none;border-radius:50%;font-size:18px;
+    cursor:pointer;color:var(--ink);line-height:1;
+  }
+  .modal h3{font-size:24px;margin-bottom:10px;padding-right:30px;}
+  .modal-sub{font-size:13px;color:var(--muted);margin-bottom:24px;}
+  #leadForm label{display:block;font-size:12px;color:var(--muted);margin-bottom:14px;}
+  #leadForm input,#leadForm select,#leadForm textarea{
+    display:block;width:100%;margin-top:6px;
+    font-family:'JetBrains Mono',monospace;font-size:14px;color:var(--ink);
+    background:var(--card-bg);border:1px solid transparent;border-radius:10px;
+    padding:12px 14px;resize:vertical;
+  }
+  #leadForm input:focus,#leadForm select:focus,#leadForm textarea:focus{
+    outline:none;border-color:var(--lav-deep);
+  }
+  .checkbox-row{display:flex;align-items:flex-start;gap:8px;font-size:11px;margin-bottom:20px;}
+  .checkbox-row input{width:auto;margin-top:3px;}
+  #leadForm button[type="submit"]{width:100%;margin-top:4px;}
+  #modalSuccess{text-align:center;padding:16px 0 4px;}
+  #modalSuccess h3{padding-right:0;}
+  #modalSuccess .pill{margin-top:16px;}
+
+  @media(max-width:860px){
+    .about-grid,.process-layout,.footer-top,.team{grid-template-columns:1fr;}
+    .perk-grid,.examples-grid,.price-grid{grid-template-columns:1fr;}
+    .other-grid{grid-template-columns:repeat(2,1fr);}
+    .process-item{grid-template-columns:1fr;}
+    .nav ul{display:none;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <a class="logo" href="tillo_journal_media_home.html">TILLO JOURNAL</a>
+    <ul>
+      <li><a href="tillo_journal_media_home.html">Главная</a></li>
+      <li><a href="tillo_journal_homepage.html">Сотрудничество</a></li>
+      <li><a href="tillo_journal_about.html">О нас</a></li>
+      <li><a href="tillo_journal_homepage.html#scenarios">Форматы сотрудничества</a></li>
+      <li><a href="tillo_journal_homepage.html#examples">Примеры интеграций</a></li>
+      <li><a href="#contacts">Контакты</a></li>
+    </ul>
+  </div>
+</header>
+
+<div class="page-hero">
+  <div class="wrap">
+    <h1 class="wordmark">Нативная<br>интеграция</h1>
+  </div>
+</div>
+
+<section>
+  <div class="wrap about-grid">
+    <h2>Формат</h2>
+    <p>Нативная интеграция — это формат сотрудничества, в котором бренд органично встроен в тему, исследование или жизненную ситуацию.</p>
+  </div>
+</section>
+
+<section class="perks">
+  <div class="wrap">
+    <h2>Плюсы<br>формата</h2>
+    <div class="perk-grid">
+      <div class="perk-card">
+        <h3>Исследовательская основа</h3>
+        <p>Используем исследования, реальные наблюдения и культурные паттерны как основу материала</p>
+      </div>
+      <div class="perk-card">
+        <h3>Динамичный формат</h3>
+        <p>Создаем динамичный контент, адаптированный под современные алгоритмы и удержание внимания</p>
+      </div>
+      <div class="perk-card">
+        <h3>Совместные публикации</h3>
+        <p>Контент может выходить в формате collab-публикации совместно с брендом</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="process">
+  <div class="wrap process-layout">
+    <div>
+      <h2>Процесс работы</h2>
+      <p class="process-lede">Берем на себя весь цикл создания интеграции: от поиска сильной темы до публикации контента и адаптации бренда под формат медиа</p>
+    </div>
+    <div class="process-list">
+      <div class="process-item">
+        <h3>Бриф и обсуждение задачи</h3>
+        <p>Изучаем продукт, аудиторию, задачи проекта и возможные сценарии интеграции</p>
+      </div>
+      <div class="process-item">
+        <h3>Подбор формата и темы</h3>
+        <p>Определяем наиболее подходящий формат контента и исследовательскую основу материала</p>
+      </div>
+      <div class="process-item">
+        <h3>Разработка сценария</h3>
+        <p>Создаем структуру ролика и продумываем интеграцию бренда внутри истории</p>
+      </div>
+      <div class="process-item">
+        <h3>Согласование</h3>
+        <p>Утверждаем тему, сценарий и формат публикации</p>
+      </div>
+      <div class="process-item">
+        <h3>Продакшн и монтаж</h3>
+        <p>Снимаем финальный материал в фирменной подаче TILLO JOURNAL</p>
+      </div>
+      <div class="process-item">
+        <h3>Публикация и аналитика</h3>
+        <p>Публикуем контент и анализируем вовлеченность аудитории</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="examples" class="examples">
+  <div class="wrap">
+    <h2>Примеры<br>интеграций</h2>
+    <div class="examples-grid">
+      <div class="example">
+        <div class="img"></div>
+        <div class="name">Название</div>
+        <div class="metric">+120k просмотров за 3 дня</div>
+        <div class="metric">Рост подписчиков бренда на 18%</div>
+      </div>
+      <div class="example">
+        <div class="img"></div>
+        <div class="name">Название</div>
+        <div class="metric">+120k просмотров за 3 дня</div>
+        <div class="metric">Рост подписчиков бренда на 18%</div>
+      </div>
+      <div class="example">
+        <div class="img"></div>
+        <div class="name">Название</div>
+        <div class="metric">+120k просмотров за 3 дня</div>
+        <div class="metric">Рост подписчиков бренда на 18%</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="pricing">
+  <div class="wrap">
+    <h2>Стоимость</h2>
+    <p class="pricing-lede">Подберем формат сотрудничества под задачи бренда, тему и сложность взаимодействия</p>
+    <div class="price-grid">
+      <div class="price-card">
+        <h3>Исследовательский рилс с бренд-адаптацией</h3>
+        <p class="desc">Рилс с исследованием, встроенным в бренд: миф, поведенческий момент или наблюдение, связанное с продуктом. Публикация выходит в формате collab.</p>
+        <ul>
+          <li>1 рилс</li>
+          <li>Разработка темы и сценария</li>
+          <li>Монтаж в фирменном стиле подачи</li>
+        </ul>
+        <div class="price">35 000 ₽</div>
+      </div>
+      <div class="price-card featured">
+        <h3>Серия рилсов на одну тему</h3>
+        <p class="desc muted">Разворачиваем одну тему в несколько роликов на разные аспекты с разными сюжетами вокруг бренда.</p>
+        <ul>
+          <li>5 рилсов</li>
+          <li>Единая тема со сквозной идеей</li>
+          <li>Высокий охват</li>
+        </ul>
+        <div class="price">45 000 ₽</div>
+      </div>
+      <div class="price-card">
+        <h3>Сторителлинг и исследовательская основа</h3>
+        <p class="desc">Совмещаем научные данные и сторителлинг с реальными кейсами. Каждый ролик со своей исследовательской основой.</p>
+        <ul>
+          <li>Серия роликов</li>
+          <li>Единая концепция</li>
+          <li>Каждый ролик со своей исследовательской основой</li>
+        </ul>
+        <div class="price">от 95 000 ₽</div>
+      </div>
+    </div>
+    <div class="price-cta">
+      <button class="pill dark" data-open-modal="Хочу обсудить проект" data-preset-format="Нативная интеграция">Хочу обсудить проект</button>
+    </div>
+  </div>
+</section>
+
+<section class="why">
+  <div class="wrap process-layout">
+    <h2>Почему бренды выбирают Tillo</h2>
+    <div class="process-list">
+      <div class="process-item">
+        <h3>Создаем контент с высокой досматриваемостью</h3>
+        <p>Работаем с удержанием внимания и эмоциональной вовлеченностью</p>
+      </div>
+      <div class="process-item">
+        <h3>Соединяем исследования и массовый формат</h3>
+        <p>Переводим сложные темы в понятный контент для широкой аудитории</p>
+      </div>
+      <div class="process-item">
+        <h3>Не прерываем внимание рекламой</h3>
+        <p>Интегрируем бренд в контент, а не создаем рекламный блок</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="other-formats">
+  <div class="wrap">
+    <h2>Другие форматы сотрудничества</h2>
+    <div class="other-grid">
+      <div class="other-card">
+        <h3>Создание Reels и совместных публикаций</h3>
+        <p>Сценарии, производство и публикация роликов совместно с брендом</p>
+      </div>
+      <div class="other-card">
+        <h3>Работа со специалистами</h3>
+        <p>Съемка и упаковка контента с экспертами в сфере здоровья</p>
+      </div>
+      <div class="other-card">
+        <h3>Сотрудничество с брендами</h3>
+        <p>От интереса до публикации: идеи, согласование, продакшн</p>
+      </div>
+      <div class="other-card">
+        <h3>Маркетинговый анализ Instagram</h3>
+        <p>Разбор аккаунта, контента и рекомендации по росту</p>
+      </div>
+      <div class="other-card">
+        <h3>Посев</h3>
+        <p>Распространение контента через сеть независимых медиа</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cta">
+  <div class="wrap">
+    <h2>У нас уже есть идеи<br>для вашего бренда</h2>
+    <p>Оставьте заявку и получите до 5 идей интеграции</p>
+    <button class="pill dark" data-open-modal="Оставить заявку">Оставить заявку</button>
+  </div>
+</section>
+
+<footer id="contacts">
+  <div class="wrap">
+    <div class="footer-top">
+      <div>
+        <h4>Навигация</h4>
+        <ul>
+          <li><a href="tillo_journal_media_home.html">Главная</a></li>
+          <li><a href="tillo_journal_about.html">О нас</a></li>
+          <li><a href="tillo_journal_homepage.html">Сотрудничество</a></li>
+          <li><a href="tillo_journal_homepage.html#scenarios">Форматы сотрудничества</a></li>
+          <li><a href="tillo_journal_homepage.html#examples">Примеры интеграций</a></li>
+          <li><a href="#contacts">Контакты</a></li>
+        </ul>
+      </div>
+      <div class="footer-mid">
+        <h4 style="text-align:center;">Связаться с нами</h4>
+        <div class="mail">hello@tillo.life</div>
+        <p>Оставьте заявку и получите до 5 идей для интеграции</p>
+        <button class="pill" data-open-modal="Стать партнером">Стать партнером</button>
+      </div>
+      <div style="text-align:right;">
+        <h4>Социальные сети</h4>
+        <ul style="text-align:right;">
+          <li>Instagram</li><li>Telegram</li>
+        </ul>
+      </div>
+    </div>
+
+    <h1 class="footer-wordmark"><a href="tillo_journal_media_home.html">TILLO JOURNAL</a></h1>
+
+    <div class="legal">
+      <div>Публичная оферта &nbsp; Политика конфиденциальности &nbsp; Согласие на обработку персональных данных</div>
+      <div>Разработка сайта</div>
+    </div>
+  </div>
+</footer>
+
+<div class="modal-overlay" id="modalOverlay" aria-hidden="true">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <button class="modal-close" id="modalClose" aria-label="Закрыть">&times;</button>
+    <div id="modalFormWrap">
+      <h3 id="modalTitle">Стать партнером</h3>
+      <p class="modal-sub" id="modalSub">Оставьте заявку — пришлём до 5 идей интеграции для вашего бренда</p>
+      <form id="leadForm">
+        <label>Имя
+          <input type="text" name="name" required placeholder="Как к вам обращаться">
+        </label>
+        <label>Бренд / компания
+          <input type="text" name="company" placeholder="Название бренда">
+        </label>
+        <label>Email или Telegram
+          <input type="text" name="contact" required placeholder="you@example.com или @telegram">
+        </label>
+        <label>Что интересует
+          <select name="format" id="formatSelect">
+            <option value="">Не выбрано</option>
+            <option>Нативная интеграция</option>
+            <option>Промо продукта</option>
+            <option>Баннерная реклама</option>
+            <option>Создание Reels и совместных публикаций</option>
+            <option>Работа со специалистами</option>
+            <option>Сотрудничество с брендами</option>
+            <option>Посев</option>
+          </select>
+        </label>
+        <label>Комментарий
+          <textarea name="message" rows="3" placeholder="Коротко о задаче или продукте"></textarea>
+        </label>
+        <label class="checkbox-row">
+          <input type="checkbox" name="consent" required>
+          <span>Согласен(-на) с политикой конфиденциальности и обработкой персональных данных</span>
+        </label>
+        <button type="submit" class="pill dark">Отправить заявку</button>
+      </form>
+    </div>
+    <div id="modalSuccess" hidden>
+      <h3>Заявка отправлена</h3>
+      <p class="modal-sub">Спасибо! Мы свяжемся с вами в течение 1–2 дней и пришлём до 5 идей интеграции.</p>
+      <button class="pill" id="modalDone">Готово</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  var headerEl = document.querySelector('header');
+  function onScroll(){
+    if(window.scrollY > 40){ headerEl.classList.add('scrolled'); }
+    else{ headerEl.classList.remove('scrolled'); }
+  }
+  window.addEventListener('scroll', onScroll, {passive:true});
+  onScroll();
+
+  (function(){
+    var overlay = document.getElementById('modalOverlay');
+    var title = document.getElementById('modalTitle');
+    var sub = document.getElementById('modalSub');
+    var formWrap = document.getElementById('modalFormWrap');
+    var success = document.getElementById('modalSuccess');
+    var form = document.getElementById('leadForm');
+    var closeBtn = document.getElementById('modalClose');
+    var doneBtn = document.getElementById('modalDone');
+    var formatSelect = document.getElementById('formatSelect');
+
+    var defaultSub = 'Оставьте заявку — пришлём до 5 идей интеграции для вашего бренда';
+    var subs = {
+      'Стать партнером': defaultSub,
+      'Обсудить сотрудничество': 'Расскажите о бренде — подберём формат и пришлём идеи интеграций',
+      'Оставить заявку': defaultSub,
+      'Хочу обсудить проект': 'Расскажите подробнее о задаче — соберём смету и идеи под этот формат'
+    };
+
+    function openModal(btn){
+      var triggerText = btn.getAttribute('data-open-modal');
+      var presetFormat = btn.getAttribute('data-preset-format');
+      title.textContent = triggerText || 'Стать партнером';
+      sub.textContent = subs[triggerText] || defaultSub;
+      formWrap.hidden = false;
+      success.hidden = true;
+      form.reset();
+      if(presetFormat){ formatSelect.value = presetFormat; }
+      overlay.classList.add('open');
+      overlay.setAttribute('aria-hidden', 'false');
+      document.body.classList.add('modal-open');
+    }
+    function closeModal(){
+      overlay.classList.remove('open');
+      overlay.setAttribute('aria-hidden', 'true');
+      document.body.classList.remove('modal-open');
+    }
+
+    document.querySelectorAll('[data-open-modal]').forEach(function(btn){
+      btn.addEventListener('click', function(){
+        openModal(btn);
+      });
+    });
+
+    closeBtn.addEventListener('click', closeModal);
+    overlay.addEventListener('click', function(e){
+      if(e.target === overlay){ closeModal(); }
+    });
+    document.addEventListener('keydown', function(e){
+      if(e.key === 'Escape'){ closeModal(); }
+    });
+
+    form.addEventListener('submit', function(e){
+      e.preventDefault();
+      formWrap.hidden = true;
+      success.hidden = false;
+    });
+    doneBtn.addEventListener('click', closeModal);
+  })();
+</script>
+</body>
+</html>

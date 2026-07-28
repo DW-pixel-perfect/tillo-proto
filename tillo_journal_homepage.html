@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TILLO JOURNAL — прототип главной</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;600;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#111111;
+    --muted:#6b6f7a;
+    --lav:#c9cffb;
+    --lav-deep:#9aa3ee;
+    --lav-text:#2c2f66;
+    --pink:#ffc6e4;
+    --mint:#bdeecb;
+    --card-bg:#f4f4f2;
+    --white:#ffffff;
+    --maxw:1200px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{
+    font-family:'JetBrains Mono', monospace;
+    color:var(--ink);
+    background:var(--white);
+    line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3,.wordmark{
+    font-family:'Unbounded', sans-serif;
+    font-weight:800;
+    letter-spacing:-0.01em;
+    line-height:0.98;
+    text-transform:none;
+  }
+  a{color:inherit;text-decoration:none;}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 40px;}
+  .eyebrow{
+    display:flex;align-items:center;gap:8px;
+    font-size:13px;color:var(--muted);
+    margin-bottom:12px;
+  }
+  .eyebrow::before{
+    content:"";width:8px;height:8px;border-radius:2px;
+    background:var(--lav-deep);display:inline-block;
+  }
+  .pill{
+    display:inline-block;
+    background:var(--lav-deep);
+    color:var(--lav-text);
+    font-family:'JetBrains Mono',monospace;
+    font-weight:600;
+    font-size:14px;
+    padding:14px 28px;
+    border-radius:999px;
+    border:none;
+    cursor:pointer;
+  }
+  .pill.dark{background:var(--ink);color:#fff;}
+
+  header{
+    position:sticky;top:0;z-index:50;
+    background:rgba(255,255,255,0);
+    transition:background .25s ease, box-shadow .25s ease, backdrop-filter .25s ease;
+  }
+  header.scrolled{
+    background:rgba(255,255,255,0.82);
+    backdrop-filter:blur(10px);
+    -webkit-backdrop-filter:blur(10px);
+    box-shadow:0 1px 0 rgba(17,17,17,0.08);
+  }
+  .nav{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:28px 0;
+  }
+  .logo{font-family:'Unbounded',sans-serif;font-weight:800;font-size:18px;}
+  .nav ul{list-style:none;display:flex;gap:32px;font-size:13px;}
+
+  .hero{
+    background:linear-gradient(135deg,var(--pink) 0%, var(--lav) 65%, var(--lav) 100%);
+    padding-bottom:90px;
+  }
+  .hero-sub{
+    text-align:center;max-width:520px;margin:60px auto 60px;
+    font-size:15px;color:var(--ink);
+  }
+  .hero-sub b{font-weight:600;}
+  .hero-word-row{
+    display:flex;align-items:center;gap:28px;flex-wrap:wrap;
+  }
+  .wordmark{font-size:clamp(64px,10vw,128px);color:var(--ink);}
+
+  section{padding:90px 0;}
+  .about-grid{
+    display:grid;grid-template-columns:1fr 1.4fr;gap:40px;align-items:start;
+  }
+  .about-grid h2{font-size:clamp(28px,4vw,40px);margin-bottom:18px;}
+  .about-grid p{max-width:440px;font-size:15px;}
+
+  .statement{
+    font-size:clamp(30px,5vw,54px);
+    text-align:center;
+    max-width:980px;margin:0 auto;
+  }
+  .reels-row{
+    display:flex;justify-content:center;align-items:center;gap:16px;
+    flex-wrap:wrap;margin:56px 0;
+  }
+  .reel-card{
+    width:150px;height:230px;border-radius:16px;
+    background:var(--card-bg);
+    background-size:cover;background-position:center;
+    position:relative;overflow:hidden;
+    flex:0 0 auto;
+  }
+  .reel-card.big{width:230px;height:340px;}
+  .reel-card .tag{
+    position:absolute;left:10px;bottom:10px;right:10px;
+    background:var(--pink);border-radius:10px;
+    font-size:11px;padding:8px 10px;color:var(--ink);font-weight:500;
+  }
+  .stat-row{
+    display:flex;gap:24px;justify-content:center;flex-wrap:wrap;margin-top:56px;
+  }
+  .stat-card{
+    background:var(--lav);border-radius:20px;
+    padding:36px 48px;text-align:center;min-width:220px;
+  }
+  .stat-card .num{font-family:'Unbounded',sans-serif;font-weight:800;font-size:34px;}
+  .stat-card .label{font-size:13px;color:var(--lav-text);margin-top:6px;}
+
+  .partnership h2{font-size:clamp(32px,5vw,52px);text-align:right;margin-bottom:8px;}
+  .partnership .lede{
+    max-width:280px;margin-left:auto;text-align:right;
+    color:var(--muted);font-size:13px;margin-bottom:24px;
+  }
+  .partnership .cta-row{text-align:right;margin-bottom:56px;}
+  .segments{
+    display:grid;grid-template-columns:repeat(3,1fr);gap:40px;
+  }
+  .segments h3{font-family:'JetBrains Mono',monospace;font-weight:600;font-size:16px;margin-bottom:14px;}
+  .segments ul{list-style:none;font-size:13px;color:var(--ink);}
+  .segments li{padding:4px 0;border-top:1px solid #eee;padding-top:8px;margin-top:8px;}
+  .segments li:first-child{border-top:none;margin-top:0;padding-top:0;}
+
+  .scenarios{background:var(--lav);}
+  .scenarios .head{margin-bottom:56px;}
+  .scenarios h2{font-size:clamp(40px,7vw,80px);}
+  .scenarios .lede{max-width:340px;color:var(--lav-text);font-size:14px;margin-top:16px;}
+  .scenario-list{border-top:2px dashed rgba(0,0,0,0.25);}
+  .scenario-item{
+    border-bottom:2px dashed rgba(0,0,0,0.25);
+    padding:36px 0;
+    display:flex;align-items:center;justify-content:space-between;gap:24px;
+  }
+  .scenario-item .idx{
+    width:28px;height:28px;border-radius:50%;background:#ffc9db;
+    display:flex;align-items:center;justify-content:center;font-size:12px;flex:0 0 auto;
+  }
+  .scenario-item h3{font-size:clamp(24px,3.6vw,40px);flex:1;}
+  .scenario-item .thumb{
+    width:80px;height:110px;border-radius:12px;background:var(--card-bg);
+    background-size:cover;background-position:center;flex:0 0 auto;
+  }
+
+  .examples h2{font-size:clamp(30px,5vw,48px);margin-bottom:48px;}
+  .examples-grid{
+    display:grid;grid-template-columns:repeat(3,1fr);gap:28px;
+  }
+  .examples-grid .example:nth-child(1),
+  .examples-grid .example:nth-child(2){grid-column:span 1;}
+  .example img,.example .img{
+    width:100%;aspect-ratio:3/4;border-radius:16px;background:var(--card-bg);
+    background-size:cover;background-position:center;margin-bottom:14px;
+  }
+  .example .name{font-weight:600;margin-bottom:6px;}
+  .example .metric{font-size:12px;color:var(--muted);}
+
+  .cta{
+    text-align:center;padding:120px 0;
+    background:linear-gradient(180deg,#ffffff 0%, var(--lav) 100%);
+  }
+  .cta h2{font-size:clamp(36px,6vw,64px);margin-bottom:20px;}
+  .cta p{font-size:14px;color:var(--muted);margin-bottom:32px;}
+
+  footer{
+    background:linear-gradient(120deg,var(--mint) 0%, var(--lav) 60%);
+    padding-top:80px;
+  }
+  .footer-top{
+    display:grid;grid-template-columns:1fr 1.4fr 1fr;gap:32px;
+    padding-bottom:70px;
+  }
+  .footer-top h4{font-size:13px;font-weight:600;margin-bottom:16px;}
+  .footer-top ul{list-style:none;font-size:13px;}
+  .footer-top li{padding:5px 0;}
+  .footer-mid{text-align:center;}
+  .footer-mid .mail{font-family:'Unbounded',sans-serif;font-weight:800;font-size:30px;margin-bottom:14px;}
+  .footer-mid p{font-size:13px;color:var(--lav-text);margin-bottom:20px;}
+  .footer-wordmark{font-size:clamp(40px,9vw,110px);padding:40px 0 0;}
+  .team{
+    display:grid;grid-template-columns:repeat(3,1fr);gap:32px;
+    padding:50px 0 40px;
+  }
+  .team .member{text-align:center;}
+  .team .avatar{
+    width:110px;height:110px;border-radius:50%;background:var(--card-bg);
+    margin:0 auto 16px;background-size:cover;background-position:center;
+  }
+  .team .name{font-weight:600;font-size:15px;margin-bottom:6px;}
+  .team .role{font-size:12px;color:var(--lav-text);max-width:220px;margin:0 auto 16px;}
+  .legal{
+    display:flex;justify-content:space-between;font-size:11px;color:var(--lav-text);
+    padding:24px 0;flex-wrap:wrap;gap:8px;
+  }
+
+  body.modal-open{overflow:hidden;}
+  .modal-overlay{
+    position:fixed;inset:0;background:rgba(17,17,17,0.45);
+    display:flex;align-items:center;justify-content:center;
+    z-index:200;opacity:0;pointer-events:none;
+    transition:opacity .2s ease;padding:20px;
+  }
+  .modal-overlay.open{opacity:1;pointer-events:auto;}
+  .modal{
+    background:#fff;border-radius:20px;max-width:440px;width:100%;
+    padding:40px;position:relative;max-height:90vh;overflow-y:auto;
+    transform:translateY(12px);transition:transform .2s ease;
+  }
+  .modal-overlay.open .modal{transform:translateY(0);}
+  .modal-close{
+    position:absolute;top:18px;right:18px;width:32px;height:32px;
+    background:var(--card-bg);border:none;border-radius:50%;font-size:18px;
+    cursor:pointer;color:var(--ink);line-height:1;
+  }
+  .modal h3{font-size:24px;margin-bottom:10px;padding-right:30px;}
+  .modal-sub{font-size:13px;color:var(--muted);margin-bottom:24px;}
+  #leadForm label{display:block;font-size:12px;color:var(--muted);margin-bottom:14px;}
+  #leadForm input,#leadForm select,#leadForm textarea{
+    display:block;width:100%;margin-top:6px;
+    font-family:'JetBrains Mono',monospace;font-size:14px;color:var(--ink);
+    background:var(--card-bg);border:1px solid transparent;border-radius:10px;
+    padding:12px 14px;resize:vertical;
+  }
+  #leadForm input:focus,#leadForm select:focus,#leadForm textarea:focus{
+    outline:none;border-color:var(--lav-deep);
+  }
+  .checkbox-row{display:flex;align-items:flex-start;gap:8px;font-size:11px;margin-bottom:20px;}
+  .checkbox-row input{width:auto;margin-top:3px;}
+  #leadForm button[type="submit"]{width:100%;margin-top:4px;}
+  #modalSuccess{text-align:center;padding:16px 0 4px;}
+  #modalSuccess h3{padding-right:0;}
+  #modalSuccess .pill{margin-top:16px;}
+
+  @media(max-width:860px){
+    .about-grid,.segments,.footer-top,.team{grid-template-columns:1fr;}
+    .examples-grid{grid-template-columns:repeat(2,1fr);}
+    .nav ul{display:none;}
+    .partnership h2,.partnership .lede{text-align:left;margin-left:0;}
+  }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <header>
+    <div class="wrap nav">
+      <a class="logo" href="tillo_journal_media_home.html">TILLO JOURNAL</a>
+      <ul>
+        <li><a href="tillo_journal_media_home.html">Главная</a></li>
+        <li><a href="tillo_journal_about.html">О нас</a></li>
+        <li><a href="#partnership">Для кого</a></li>
+        <li><a href="#scenarios">Сценарии работы</a></li>
+        <li><a href="#examples">Примеры интеграций</a></li>
+        <li><a href="#contacts">Контакты</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <div class="wrap">
+    <p class="hero-sub">Медиа на каждый день на основе исследований, без скучных формулировок.<br><b>Объясняем так, что смотрят до конца.</b></p>
+    <div class="hero-word-row">
+      <h1 class="wordmark">TILLO</h1>
+      <button class="pill" data-open-modal="Стать партнером">Стать партнером</button>
+    </div>
+    <h1 class="wordmark">JOURNAL</h1>
+  </div>
+</div>
+
+<section id="about">
+  <div class="wrap about-grid">
+    <div class="eyebrow">О нас</div>
+    <div></div>
+  </div>
+  <div class="wrap about-grid" style="margin-top:-12px;">
+    <h2>Что такое<br>Tillo Journal?</h2>
+    <p>Рассказываем, как поддерживать физическое и психологическое благополучие в современном формате и помогаем брендам становиться частью истории через нативные интеграции.</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <p class="statement">Мы находим интересные исследования, эксперименты и упаковываем их в формат динамичного рилса</p>
+    <div class="reels-row">
+      <div class="reel-card"></div>
+      <div class="reel-card"></div>
+      <div class="reel-card big">
+        <div class="tag">Твоя спортивная форма тебя медленно <b>отравляет.</b></div>
+      </div>
+      <div class="reel-card"></div>
+      <div class="reel-card"></div>
+    </div>
+    <div class="stat-row">
+      <div class="stat-card"><div class="num">45 тыс.</div><div class="label">подписчиков</div></div>
+      <div class="stat-card"><div class="num">5 млн.</div><div class="label">просмотров</div></div>
+      <div class="stat-card"><div class="num">3 млн.</div><div class="label">охват аккаунта</div></div>
+    </div>
+  </div>
+</section>
+
+<section id="partnership" class="partnership">
+  <div class="wrap">
+    <div class="eyebrow" style="justify-content:flex-end;">Для кого подойдет</div>
+    <h2>Сотрудничество<br>с нами</h2>
+    <p class="lede">Работаем с теми, кто формирует культуру здоровья:</p>
+    <div class="cta-row">
+      <button class="pill" data-open-modal="Обсудить сотрудничество">Обсудить сотрудничество</button>
+    </div>
+    <div class="segments">
+      <div>
+        <h3>Эксперты в сфере здоровья</h3>
+        <ul>
+          <li>Психологи, психотерапевты, коучи</li>
+          <li>Йога, пилатес, дыхание, соматика</li>
+          <li>Нутрициологи, health-коучи</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Бренды</h3>
+        <ul>
+          <li>БАДы, витамины, функциональное питание</li>
+          <li>Приложения, сервисы терапии, подписки</li>
+          <li>Wellness-бренды образа жизни</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Проекты и пространства</h3>
+        <ul>
+          <li>Йога-студии, ретрит-центры, wellness-клубы</li>
+          <li>Образовательные проекты, курсы, школы, комьюнити</li>
+          <li>Журналы, блоги, платформы про осознанность и здоровье</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="scenarios" class="scenarios">
+  <div class="wrap">
+    <div class="head">
+      <h2>Сценарии<br>работы</h2>
+      <p class="lede">Мы ищем партнеров, разделяющих наш подход: факты, источники и уважение к читателю</p>
+    </div>
+    <div class="scenario-list">
+      <div class="scenario-item">
+        <span class="idx">1</span>
+        <h3>Нативная интеграция</h3>
+        <div class="thumb"></div>
+        <a class="pill" style="background:var(--white);" href="tillo_journal_native_integration.html">Подробнее</a>
+      </div>
+      <div class="scenario-item">
+        <span class="idx">2</span>
+        <h3>Промо продукта</h3>
+      </div>
+      <div class="scenario-item">
+        <span class="idx">3</span>
+        <h3>Баннерная реклама</h3>
+        <div class="thumb"></div>
+      </div>
+      <div class="scenario-item">
+        <span class="idx">4</span>
+        <h3>Создание Reels</h3>
+      </div>
+      <div class="scenario-item">
+        <span class="idx">5</span>
+        <h3>Работа со специалистами</h3>
+      </div>
+      <div class="scenario-item">
+        <span class="idx">6</span>
+        <h3>Сотрудничество с брендами</h3>
+        <div class="thumb"></div>
+      </div>
+      <div class="scenario-item">
+        <span class="idx">7</span>
+        <h3>Посев</h3>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="examples" class="examples">
+  <div class="wrap">
+    <div class="eyebrow">Примеры интеграций</div>
+    <h2>Наши рилсы смотрят до конца<br>и делятся с близкими</h2>
+    <div class="examples-grid">
+      <div class="example">
+        <div class="img"></div>
+        <div class="name">Название</div>
+        <div class="metric">+120k просмотров за 3 дня</div>
+        <div class="metric">Рост подписчиков бренда на 18%</div>
+      </div>
+      <div class="example">
+        <div class="img"></div>
+        <div class="name">Название</div>
+        <div class="metric">+120k просмотров за 3 дня</div>
+        <div class="metric">Рост подписчиков бренда на 18%</div>
+      </div>
+      <div class="example">
+        <div class="img"></div>
+        <div class="name">Название</div>
+        <div class="metric">+120k просмотров за 3 дня</div>
+        <div class="metric">Рост подписчиков бренда на 18%</div>
+      </div>
+      <div class="example">
+        <div class="img"></div>
+        <div class="name">Название</div>
+        <div class="metric">+120k просмотров за 3 дня</div>
+        <div class="metric">Рост подписчиков бренда на 18%</div>
+      </div>
+      <div class="example">
+        <div class="img"></div>
+        <div class="name">Название</div>
+        <div class="metric">+120k просмотров за 3 дня</div>
+        <div class="metric">Рост подписчиков бренда на 18%</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cta">
+  <div class="wrap">
+    <h2>У нас уже есть идеи<br>для вашего бренда</h2>
+    <p>Оставьте заявку и получите до 5 идей интеграции</p>
+    <button class="pill dark" data-open-modal="Оставить заявку">Оставить заявку</button>
+  </div>
+</section>
+
+<footer id="contacts">
+  <div class="wrap">
+    <div class="footer-top">
+      <div>
+        <h4>Навигация</h4>
+        <ul>
+          <li><a href="tillo_journal_media_home.html">Главная</a></li>
+          <li><a href="tillo_journal_about.html">О нас</a></li><li>Что делаем</li><li>Сотрудничество</li>
+          <li>Форматы сотрудничества</li><li>Примеры интеграций</li><li>Контакты</li>
+        </ul>
+      </div>
+      <div class="footer-mid">
+        <h4 style="text-align:center;">Связаться с нами</h4>
+        <div class="mail">hello@tillo.life</div>
+        <p>Оставьте заявку и получите до 5 идей для интеграции</p>
+        <button class="pill" data-open-modal="Стать партнером">Стать партнером</button>
+      </div>
+      <div style="text-align:right;">
+        <h4>Социальные сети</h4>
+        <ul style="text-align:right;">
+          <li>Instagram</li><li>Telegram</li>
+        </ul>
+      </div>
+    </div>
+
+    <h1 class="footer-wordmark"><a href="tillo_journal_media_home.html">TILLO JOURNAL</a></h1>
+
+    <div class="team">
+      <div class="member">
+        <div class="avatar"></div>
+        <div class="name">Марианна Лушникова</div>
+        <div class="role">масштабные рекламные кампании и спецпроекты</div>
+        <button class="pill">Написать</button>
+      </div>
+      <div class="member">
+        <div class="avatar"></div>
+        <div class="name">Елизавета Подколзина</div>
+        <div class="role">нативные интеграции, коллаборации в сфере психологии, культуры, красоты и образования</div>
+        <button class="pill">Написать</button>
+      </div>
+      <div class="member">
+        <div class="avatar"></div>
+        <div class="name">Даниил Рази</div>
+        <div class="role">рекламные кампании, интеграции с брендами в сфере спорта, медицины, здоровья и мотивации</div>
+        <button class="pill">Написать</button>
+      </div>
+    </div>
+
+    <div class="legal">
+      <div>Публичная оферта &nbsp; Политика конфиденциальности &nbsp; Согласие на обработку персональных данных</div>
+      <div>Разработка сайта</div>
+    </div>
+  </div>
+</footer>
+
+<div class="modal-overlay" id="modalOverlay" aria-hidden="true">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <button class="modal-close" id="modalClose" aria-label="Закрыть">&times;</button>
+    <div id="modalFormWrap">
+      <h3 id="modalTitle">Стать партнером</h3>
+      <p class="modal-sub" id="modalSub">Оставьте заявку — пришлём до 5 идей интеграции для вашего бренда</p>
+      <form id="leadForm">
+        <label>Имя
+          <input type="text" name="name" required placeholder="Как к вам обращаться">
+        </label>
+        <label>Бренд / компания
+          <input type="text" name="company" placeholder="Название бренда">
+        </label>
+        <label>Email или Telegram
+          <input type="text" name="contact" required placeholder="you@example.com или @telegram">
+        </label>
+        <label>Что интересует
+          <select name="format">
+            <option value="">Не выбрано</option>
+            <option>Нативная интеграция</option>
+            <option>Промо продукта</option>
+            <option>Баннерная реклама</option>
+            <option>Создание Reels и совместных публикаций</option>
+            <option>Работа со специалистами</option>
+            <option>Сотрудничество с брендами</option>
+            <option>Посев</option>
+          </select>
+        </label>
+        <label>Комментарий
+          <textarea name="message" rows="3" placeholder="Коротко о задаче или продукте"></textarea>
+        </label>
+        <label class="checkbox-row">
+          <input type="checkbox" name="consent" required>
+          <span>Согласен(-на) с политикой конфиденциальности и обработкой персональных данных</span>
+        </label>
+        <button type="submit" class="pill dark">Отправить заявку</button>
+      </form>
+    </div>
+    <div id="modalSuccess" hidden>
+      <h3>Заявка отправлена</h3>
+      <p class="modal-sub">Спасибо! Мы свяжемся с вами в течение 1–2 дней и пришлём до 5 идей интеграции.</p>
+      <button class="pill" id="modalDone">Готово</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  var headerEl = document.querySelector('header');
+  function onScroll(){
+    if(window.scrollY > 40){ headerEl.classList.add('scrolled'); }
+    else{ headerEl.classList.remove('scrolled'); }
+  }
+  window.addEventListener('scroll', onScroll, {passive:true});
+  onScroll();
+
+  (function(){
+    var overlay = document.getElementById('modalOverlay');
+    var title = document.getElementById('modalTitle');
+    var sub = document.getElementById('modalSub');
+    var formWrap = document.getElementById('modalFormWrap');
+    var success = document.getElementById('modalSuccess');
+    var form = document.getElementById('leadForm');
+    var closeBtn = document.getElementById('modalClose');
+    var doneBtn = document.getElementById('modalDone');
+
+    var defaultSub = 'Оставьте заявку — пришлём до 5 идей интеграции для вашего бренда';
+    var subs = {
+      'Стать партнером': defaultSub,
+      'Обсудить сотрудничество': 'Расскажите о бренде — подберём формат и пришлём идеи интеграций',
+      'Оставить заявку': defaultSub
+    };
+
+    function openModal(triggerText){
+      title.textContent = triggerText || 'Стать партнером';
+      sub.textContent = subs[triggerText] || defaultSub;
+      formWrap.hidden = false;
+      success.hidden = true;
+      form.reset();
+      overlay.classList.add('open');
+      overlay.setAttribute('aria-hidden', 'false');
+      document.body.classList.add('modal-open');
+    }
+    function closeModal(){
+      overlay.classList.remove('open');
+      overlay.setAttribute('aria-hidden', 'true');
+      document.body.classList.remove('modal-open');
+    }
+
+    document.querySelectorAll('[data-open-modal]').forEach(function(btn){
+      btn.addEventListener('click', function(){
+        openModal(btn.getAttribute('data-open-modal'));
+      });
+    });
+
+    closeBtn.addEventListener('click', closeModal);
+    overlay.addEventListener('click', function(e){
+      if(e.target === overlay){ closeModal(); }
+    });
+    document.addEventListener('keydown', function(e){
+      if(e.key === 'Escape'){ closeModal(); }
+    });
+
+    form.addEventListener('submit', function(e){
+      e.preventDefault();
+      formWrap.hidden = true;
+      success.hidden = false;
+    });
+    doneBtn.addEventListener('click', closeModal);
+  })();
+</script>
+</body>
+</html>

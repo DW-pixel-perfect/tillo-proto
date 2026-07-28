@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Новое исследование связало жаркие ночи с потерей сна — TILLO JOURNAL</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;600;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#111111;
+    --muted:#6b6f7a;
+    --lav:#c9cffb;
+    --lav-deep:#9aa3ee;
+    --lav-text:#2c2f66;
+    --pink:#ffc6e4;
+    --mint:#bdeecb;
+    --card-bg:#f4f4f2;
+    --white:#ffffff;
+    --maxw:1200px;
+    --article-w:720px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{
+    font-family:'JetBrains Mono', monospace;
+    color:var(--ink);
+    background:var(--white);
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3,.wordmark{
+    font-family:'Unbounded', sans-serif;
+    font-weight:800;
+    letter-spacing:-0.01em;
+    line-height:1.08;
+  }
+  a{color:inherit;text-decoration:none;}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 40px;}
+  .narrow{max-width:var(--article-w);margin:0 auto;padding:0 40px;}
+  .pill{
+    display:inline-block;background:var(--lav-deep);color:var(--lav-text);
+    font-family:'JetBrains Mono',monospace;font-weight:600;font-size:14px;
+    padding:14px 28px;border-radius:999px;border:none;cursor:pointer;
+  }
+  .pill.dark{background:var(--ink);color:#fff;}
+
+  header{
+    position:sticky;top:0;z-index:50;background:rgba(255,255,255,0);
+    transition:background .25s ease, box-shadow .25s ease, backdrop-filter .25s ease;
+  }
+  header.scrolled{
+    background:rgba(255,255,255,0.88);backdrop-filter:blur(10px);
+    -webkit-backdrop-filter:blur(10px);box-shadow:0 1px 0 rgba(17,17,17,0.08);
+  }
+  .nav{display:flex;align-items:center;justify-content:space-between;padding:24px 0;}
+  .logo{font-family:'Unbounded',sans-serif;font-weight:800;font-size:18px;}
+  .nav ul{list-style:none;display:flex;gap:30px;font-size:13px;}
+
+  .breadcrumbs{font-size:12px;color:var(--muted);padding:20px 0 0;}
+  .breadcrumbs a{color:var(--lav-text);}
+
+  .tag-chip{
+    display:inline-block;background:#ffe1ef;color:#8a2f57;
+    font-size:11px;font-weight:600;padding:5px 12px;border-radius:999px;
+    text-transform:uppercase;letter-spacing:0.03em;margin:20px 0 16px;
+  }
+
+  .toggle-flag{
+    display:inline-flex;align-items:center;gap:6px;
+    font-size:10px;color:var(--lav-text);background:var(--lav);
+    padding:4px 10px;border-radius:999px;margin-bottom:14px;
+    text-transform:uppercase;letter-spacing:0.03em;font-weight:600;
+  }
+  .toggle-block{border:1px dashed #d7d9e6;border-radius:16px;padding:24px;margin:36px 0;}
+
+  h1.title{font-size:clamp(28px,4.6vw,44px);margin-bottom:18px;}
+  .lead{font-size:16px;color:var(--muted);margin-bottom:28px;}
+
+  .featured-img{width:100%;aspect-ratio:16/9;background:var(--card-bg);border-radius:16px;margin-bottom:8px;}
+  .img-alt{font-size:11px;color:var(--muted);margin-bottom:28px;}
+
+  .meta-row{
+    display:flex;flex-wrap:wrap;gap:16px;align-items:center;
+    font-size:12px;color:var(--muted);margin-bottom:36px;
+    border-top:1px solid #ececef;border-bottom:1px solid #ececef;padding:16px 0;
+  }
+  .meta-row a{font-weight:600;color:var(--lav-text);}
+  .meta-sep{color:#ccc;}
+
+  .expert-banner{
+    display:flex;align-items:center;gap:14px;
+    background:var(--lav);border-radius:14px;padding:14px 18px;margin-bottom:28px;
+  }
+  .expert-banner .avatar{width:40px;height:40px;border-radius:50%;background:var(--card-bg);flex:0 0 auto;}
+  .expert-banner p{font-size:12px;color:var(--lav-text);}
+  .expert-banner a{font-weight:600;text-decoration:underline;}
+
+  .article-body h2{font-size:22px;margin:36px 0 14px;}
+  .article-body p{font-size:15px;margin-bottom:16px;}
+  .article-body ul{margin:0 0 16px 20px;font-size:15px;}
+  .article-body li{margin-bottom:6px;}
+  .body-img{width:100%;aspect-ratio:16/9;background:var(--card-bg);border-radius:14px;margin:20px 0 8px;}
+  .body-img-cap{font-size:11px;color:var(--muted);margin-bottom:20px;}
+  .video-embed{
+    width:100%;aspect-ratio:16/9;background:var(--ink);border-radius:14px;
+    display:flex;align-items:center;justify-content:center;color:#fff;font-size:12px;margin:20px 0 8px;
+  }
+  .video-cap{font-size:11px;color:var(--muted);margin-bottom:20px;}
+
+  .study-card{background:var(--card-bg);border-radius:16px;padding:24px;}
+  .study-card h3{font-family:'Unbounded',sans-serif;font-weight:600;font-size:16px;margin-bottom:14px;}
+  .study-table{width:100%;font-size:13px;}
+  .study-table td{padding:6px 0;vertical-align:top;border-top:1px solid #e5e5e9;}
+  .study-table td:first-child{color:var(--muted);width:180px;}
+  .study-table tr:first-child td{border-top:none;}
+
+  .sources h3,.related h3{font-family:'Unbounded',sans-serif;font-weight:600;font-size:16px;margin-bottom:16px;}
+  .source-item{font-size:13px;padding:10px 0;border-top:1px solid #ececef;}
+  .source-item:first-child{border-top:none;}
+  .source-item .src-title{font-weight:600;}
+  .source-item .src-meta{color:var(--muted);font-size:12px;}
+
+  .related-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+  .related-card .img{width:100%;aspect-ratio:16/10;border-radius:12px;background:var(--card-bg);margin-bottom:10px;}
+  .related-card h4{font-family:'Unbounded',sans-serif;font-weight:600;font-size:14px;line-height:1.25;}
+
+  .author-block{display:flex;gap:16px;align-items:flex-start;}
+  .author-block .avatar{width:56px;height:56px;border-radius:50%;background:var(--card-bg);flex:0 0 auto;}
+  .author-block h3{font-family:'Unbounded',sans-serif;font-weight:600;font-size:15px;margin-bottom:6px;}
+  .author-block p{font-size:12px;color:var(--muted);margin-bottom:8px;}
+  .author-block a.pill{padding:8px 18px;font-size:12px;}
+
+  .cta-block{background:var(--lav);border-radius:16px;padding:28px;text-align:center;}
+  .cta-block h3{font-family:'Unbounded',sans-serif;font-weight:700;font-size:18px;margin-bottom:8px;}
+  .cta-block p{font-size:13px;color:var(--lav-text);margin-bottom:16px;}
+
+  .cms-panel{
+    background:var(--ink);color:#eee;border-radius:16px;padding:28px;font-size:12px;
+  }
+  .cms-panel h3{font-family:'Unbounded',sans-serif;font-weight:600;font-size:14px;color:#fff;margin-bottom:14px;}
+  .cms-panel .row{display:flex;justify-content:space-between;padding:6px 0;border-top:1px solid rgba(255,255,255,0.12);gap:16px;}
+  .cms-panel .row:first-child{border-top:none;}
+  .cms-panel .k{color:#9aa0b5;}
+  .cms-panel .v{text-align:right;color:#fff;}
+
+  footer{background:linear-gradient(120deg,var(--mint) 0%, var(--lav) 60%);padding-top:80px;margin-top:80px;}
+  .footer-top{display:grid;grid-template-columns:1fr 1.4fr 1fr;gap:32px;padding-bottom:70px;}
+  .footer-top h4{font-size:13px;font-weight:600;margin-bottom:16px;}
+  .footer-top ul{list-style:none;font-size:13px;}
+  .footer-top li{padding:5px 0;}
+  .footer-mid{text-align:center;}
+  .footer-mid .mail{font-family:'Unbounded',sans-serif;font-weight:800;font-size:30px;margin-bottom:14px;}
+  .footer-mid p{font-size:13px;color:var(--lav-text);margin-bottom:20px;}
+  .footer-wordmark{font-size:clamp(40px,9vw,110px);padding:40px 0 0;line-height:0.98;}
+  .team{display:grid;grid-template-columns:repeat(3,1fr);gap:32px;padding:50px 0 40px;}
+  .team .member{text-align:center;}
+  .team .avatar{width:110px;height:110px;border-radius:50%;background:var(--card-bg);margin:0 auto 16px;}
+  .team .name{font-weight:600;font-size:15px;margin-bottom:6px;}
+  .team .role{font-size:12px;color:var(--lav-text);max-width:220px;margin:0 auto 16px;}
+  .legal{display:flex;justify-content:space-between;font-size:11px;color:var(--lav-text);padding:24px 0;flex-wrap:wrap;gap:8px;}
+
+  @media(max-width:860px){
+    .footer-top,.team,.related-grid{grid-template-columns:1fr;}
+    .nav ul{display:none;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <a class="logo" href="tillo_journal_media_home.html">TILLO JOURNAL</a>
+    <ul>
+      <li><a href="tillo_journal_category_news.html">Новости</a></li>
+      <li><a href="tillo_journal_category_guides.html">Гайды</a></li>
+      <li><a href="tillo_journal_category_articles.html">Статьи</a></li>
+      <li><a href="tillo_journal_homepage.html">Сотрудничество</a></li>
+      <li><a href="#contacts">Контакты</a></li>
+    </ul>
+  </div>
+</header>
+
+<div class="narrow breadcrumbs">
+  <a href="tillo_journal_media_home.html">Главная</a> / <a href="tillo_journal_category_news.html">Новости</a> / Жаркие ночи и сон
+</div>
+
+<article class="narrow">
+  <span class="tag-chip">Новостной материал</span>
+
+  <div class="expert-banner">
+    <div class="avatar"></div>
+    <p>Этот текст проверил(а) <a href="#">врач-сомнолог Анна Светлова</a> · <span class="toggle-flag" style="margin:0;background:rgba(255,255,255,0.5);">отключаемый блок</span></p>
+  </div>
+
+  <h1 class="title">Новое исследование связало жаркие ночи с потерей сна</h1>
+  <p class="lead">Учёные сопоставили данные о температуре по ночам и качестве сна — разбираем, что именно нашли и что с этим делать.</p>
+
+  <div class="featured-img"></div>
+  <p class="img-alt">Alt: термометр на фоне открытого ночного окна</p>
+
+  <div class="meta-row">
+    <span>Автор: <a href="tillo_journal_author.html">Игорь Земцов</a></span>
+    <span class="meta-sep">·</span>
+    <span>Опубликовано 23 июля 2026</span>
+    <span class="meta-sep">·</span>
+    <span>Обновлено 23 июля 2026</span>
+  </div>
+
+  <div class="article-body">
+    <h2>Что именно нашли учёные</h2>
+    <p>Исследователи в течение трёх летних месяцев отслеживали температуру в спальнях и качество сна participants с помощью носимых датчиков. Каждое повышение ночной температуры выше 24°C было связано с заметным сокращением фазы глубокого сна.</p>
+    <p>Эффект усиливался в городах без кондиционеров: там доля людей, жалующихся на бессонницу, была почти вдвое выше, чем в контрольной группе.</p>
+
+    <div class="body-img"></div>
+    <p class="body-img-cap">Alt: график распределения температуры и фаз сна</p>
+
+    <h2>Почему это важно</h2>
+    <p>Авторы работы отмечают, что с учётом роста числа аномально жарких ночей эффект может затрагивать всё больше людей — даже тех, кто не считает себя чувствительным к жаре.</p>
+    <ul>
+      <li>Глубокий сон сокращается уже при +2°C выше привычной температуры в комнате</li>
+      <li>Эффект сильнее у людей старше 50 лет</li>
+      <li>Кондиционер и вентиляция частично нивелируют эффект, но не полностью</li>
+    </ul>
+
+    <div class="video-embed">embed-видео (YouTube / iframe)</div>
+    <p class="video-cap">Подпись к видео: комментарий сомнолога о том, как охладить спальню без кондиционера</p>
+
+    <h2>Что можно сделать уже сегодня</h2>
+    <p>Простые меры — светлое постельное бельё, проветривание за час до сна и отказ от плотных штор — дают заметный эффект даже без кондиционера, показывают более ранние исследования на ту же тему.</p>
+  </div>
+
+  <div class="toggle-block">
+    <span class="toggle-flag">отключаемый блок · карточка исследования</span>
+    <div class="study-card">
+      <h3>Карточка исследования</h3>
+      <table class="study-table">
+        <tr><td>Название</td><td>Nighttime temperature and sleep architecture: a field study</td></tr>
+        <tr><td>Журнал</td><td>Sleep Health Journal</td></tr>
+        <tr><td>Дата публикации</td><td>июль 2026</td></tr>
+        <tr><td>DOI / ссылка</td><td><a href="#">10.1234/shj.2026.0456</a></td></tr>
+        <tr><td>Тип исследования</td><td>Полевое наблюдательное</td></tr>
+        <tr><td>Размер выборки</td><td>412 человек</td></tr>
+        <tr><td>Главное ограничение</td><td>Нет данных по влажности воздуха, только температура</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="toggle-block sources">
+    <span class="toggle-flag">отключаемый блок · источники</span>
+    <h3>Источники</h3>
+    <div class="source-item">
+      <div class="src-title">Nighttime temperature and sleep architecture: a field study</div>
+      <div class="src-meta">Sleep Health Journal · июль 2026 · DOI: 10.1234/shj.2026.0456</div>
+    </div>
+    <div class="source-item">
+      <div class="src-title">Heat exposure and insomnia risk in urban populations</div>
+      <div class="src-meta">Journal of Environmental Health · март 2025</div>
+    </div>
+  </div>
+
+  <div class="toggle-block related">
+    <span class="toggle-flag">отключаемый блок · связанные статьи</span>
+    <h3>Связанные статьи</h3>
+    <div class="related-grid">
+      <div class="related-card">
+        <div class="img"></div>
+        <h4>Что такое циркадные ритмы</h4>
+      </div>
+      <div class="related-card">
+        <div class="img"></div>
+        <h4>Как сон влияет на вес</h4>
+      </div>
+      <div class="related-card">
+        <div class="img"></div>
+        <h4>Новые данные объясняют, почему люди переедают после недосыпа</h4>
+      </div>
+    </div>
+  </div>
+
+  <div class="toggle-block author-block">
+    <span class="toggle-flag" style="position:absolute;transform:translateY(-38px);">отключаемый блок · автор</span>
+    <div class="avatar"></div>
+    <div>
+      <h3>Игорь Земцов</h3>
+      <p>Пишет о сне, восстановлении и доказательной медицине для Tillo Journal.</p>
+      <a class="pill" href="tillo_journal_author.html">Профиль автора</a>
+    </div>
+  </div>
+
+  <div class="toggle-block cta-block">
+    <span class="toggle-flag">отключаемый блок · CTA</span>
+    <h3>Не пропустите следующий разбор</h3>
+    <p>Раз в неделю — самые важные материалы о здоровье и wellness</p>
+    <a class="pill dark" href="tillo_journal_category_news.html">Подписаться</a>
+  </div>
+
+  <div class="cms-panel" style="margin-top:40px;">
+    <h3>Внутренние поля (не отображаются на странице)</h3>
+    <div class="row"><span class="k">SEO title</span><span class="v">Жаркие ночи и потеря сна: что нашли учёные — Tillo Journal</span></div>
+    <div class="row"><span class="k">SEO description</span><span class="v">Разбираем новое исследование о связи ночной жары и качества сна</span></div>
+    <div class="row"><span class="k">Slug</span><span class="v">/zharkie-nochi-i-son/</span></div>
+    <div class="row"><span class="k">OG title</span><span class="v">Жаркие ночи мешают спать — вот что с этим делать</span></div>
+    <div class="row"><span class="k">OG description</span><span class="v">Новое исследование о температуре и фазах сна</span></div>
+    <div class="row"><span class="k">OG image</span><span class="v">/og/zharkie-nochi.jpg</span></div>
+    <div class="row"><span class="k">Тип разметки</span><span class="v">NewsArticle</span></div>
+  </div>
+</article>
+
+<footer id="contacts">
+  <div class="wrap">
+    <div class="footer-top">
+      <div>
+        <h4>Навигация</h4>
+        <ul>
+          <li><a href="tillo_journal_media_home.html">Главная</a></li>
+          <li><a href="tillo_journal_about.html">О нас</a></li>
+          <li><a href="tillo_journal_homepage.html">Сотрудничество</a></li>
+          <li><a href="tillo_journal_category_guides.html">Гайды</a></li>
+          <li><a href="tillo_journal_category_articles.html">Статьи</a></li>
+          <li><a href="#contacts">Контакты</a></li>
+        </ul>
+      </div>
+      <div class="footer-mid">
+        <h4 style="text-align:center;">Связаться с нами</h4>
+        <div class="mail">hello@tillo.life</div>
+        <p>По вопросам партнёрства и сотрудничества</p>
+        <a class="pill" href="tillo_journal_homepage.html">Стать партнером</a>
+      </div>
+      <div style="text-align:right;">
+        <h4>Социальные сети</h4>
+        <ul style="text-align:right;"><li>Instagram</li><li>Telegram</li></ul>
+      </div>
+    </div>
+
+    <h1 class="footer-wordmark"><a href="tillo_journal_media_home.html">TILLO JOURNAL</a></h1>
+
+    <div class="legal">
+      <div>Публичная оферта &nbsp; Политика конфиденциальности &nbsp; Согласие на обработку персональных данных</div>
+      <div>Разработка сайта</div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  var headerEl = document.querySelector('header');
+  function onScroll(){
+    if(window.scrollY > 40){ headerEl.classList.add('scrolled'); }
+    else{ headerEl.classList.remove('scrolled'); }
+  }
+  window.addEventListener('scroll', onScroll, {passive:true});
+  onScroll();
+</script>
+</body>
+</html>

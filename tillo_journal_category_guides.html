@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Гайды — TILLO JOURNAL</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;600;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#111111;--muted:#6b6f7a;--lav:#c9cffb;--lav-deep:#9aa3ee;--lav-text:#2c2f66;
+    --pink:#ffc6e4;--mint:#bdeecb;--card-bg:#f4f4f2;--white:#ffffff;--maxw:1200px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'JetBrains Mono', monospace;color:var(--ink);background:var(--white);line-height:1.5;-webkit-font-smoothing:antialiased;}
+  h1,h2,h3{font-family:'Unbounded', sans-serif;font-weight:800;letter-spacing:-0.01em;line-height:1.05;}
+  a{color:inherit;text-decoration:none;}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 40px;}
+  .pill{display:inline-block;background:var(--lav-deep);color:var(--lav-text);font-family:'JetBrains Mono',monospace;font-weight:600;font-size:14px;padding:12px 24px;border-radius:999px;border:none;cursor:pointer;}
+  .pill.dark{background:var(--ink);color:#fff;}
+  .pill.active{background:var(--ink);color:#fff;}
+  header{position:sticky;top:0;z-index:50;background:rgba(255,255,255,0);transition:background .25s ease, box-shadow .25s ease, backdrop-filter .25s ease;}
+  header.scrolled{background:rgba(255,255,255,0.88);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);box-shadow:0 1px 0 rgba(17,17,17,0.08);}
+  .nav{display:flex;align-items:center;justify-content:space-between;padding:24px 0;}
+  .logo{font-family:'Unbounded',sans-serif;font-weight:800;font-size:18px;}
+  .nav ul{list-style:none;display:flex;gap:30px;font-size:13px;}
+  .nav .current{color:var(--lav-text);font-weight:600;}
+
+  .breadcrumbs{font-size:12px;color:var(--muted);padding:24px 0 0;}
+  .breadcrumbs a{color:var(--lav-text);}
+
+  .cat-hero{padding:24px 0 48px;}
+  .cat-hero h1{font-size:clamp(36px,6vw,60px);margin-bottom:14px;}
+  .cat-hero p{font-size:15px;color:var(--muted);max-width:520px;}
+
+  .tag-chip{display:inline-block;background:var(--lav);color:var(--lav-text);font-size:11px;font-weight:600;padding:5px 12px;border-radius:999px;text-transform:uppercase;letter-spacing:0.03em;margin-bottom:12px;}
+
+  .filter-row{display:flex;gap:10px;flex-wrap:wrap;padding-bottom:40px;border-bottom:1px solid #ececef;margin-bottom:40px;}
+  .filter-row .pill{background:var(--card-bg);color:var(--ink);font-size:12px;padding:9px 18px;}
+
+  .grid-guides{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;padding-bottom:60px;}
+  .guide-card{background:var(--card-bg);border-radius:20px;padding:24px;}
+  .guide-card .img{width:100%;aspect-ratio:16/9;border-radius:14px;background:#e7e7ec;margin-bottom:16px;}
+  .guide-card h3{font-family:'Unbounded',sans-serif;font-weight:600;font-size:18px;margin-bottom:10px;}
+  .guide-card p{font-size:13px;color:var(--muted);margin-bottom:10px;}
+  .meta{font-size:12px;color:var(--muted);}
+
+  .pagination{display:flex;justify-content:center;gap:10px;padding-bottom:80px;}
+  .pagination a{width:36px;height:36px;display:flex;align-items:center;justify-content:center;border-radius:50%;background:var(--card-bg);font-size:13px;}
+  .pagination a.active{background:var(--ink);color:#fff;}
+
+  footer{background:linear-gradient(120deg,var(--mint) 0%, var(--lav) 60%);padding-top:80px;}
+  .footer-top{display:grid;grid-template-columns:1fr 1.4fr 1fr;gap:32px;padding-bottom:70px;}
+  .footer-top h4{font-size:13px;font-weight:600;margin-bottom:16px;}
+  .footer-top ul{list-style:none;font-size:13px;}
+  .footer-top li{padding:5px 0;}
+  .footer-mid{text-align:center;}
+  .footer-mid .mail{font-family:'Unbounded',sans-serif;font-weight:800;font-size:30px;margin-bottom:14px;}
+  .footer-mid p{font-size:13px;color:var(--lav-text);margin-bottom:20px;}
+  .footer-wordmark{font-size:clamp(40px,9vw,110px);padding:40px 0 0;line-height:0.98;}
+  .team{display:grid;grid-template-columns:repeat(3,1fr);gap:32px;padding:50px 0 40px;}
+  .team .member{text-align:center;}
+  .team .avatar{width:110px;height:110px;border-radius:50%;background:var(--card-bg);margin:0 auto 16px;}
+  .team .name{font-weight:600;font-size:15px;margin-bottom:6px;}
+  .team .role{font-size:12px;color:var(--lav-text);max-width:220px;margin:0 auto 16px;}
+  .legal{display:flex;justify-content:space-between;font-size:11px;color:var(--lav-text);padding:24px 0;flex-wrap:wrap;gap:8px;}
+
+  @media(max-width:860px){
+    .grid-guides,.footer-top,.team{grid-template-columns:1fr;}
+    .nav ul{display:none;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <a class="logo" href="tillo_journal_media_home.html">TILLO JOURNAL</a>
+    <ul>
+      <li><a href="tillo_journal_category_news.html">Новости</a></li>
+      <li><a class="current" href="tillo_journal_category_guides.html">Гайды</a></li>
+      <li><a href="tillo_journal_category_articles.html">Статьи</a></li>
+      <li><a href="tillo_journal_homepage.html">Сотрудничество</a></li>
+      <li><a href="#contacts">Контакты</a></li>
+    </ul>
+  </div>
+</header>
+
+<div class="wrap breadcrumbs">
+  <a href="tillo_journal_media_home.html">Главная</a> / Гайды
+</div>
+
+<div class="wrap cat-hero">
+  <h1>Гайды</h1>
+  <p>Подробные evergreen-материалы: что такое, как работает, почему важно, что делать — формат «Большой гайд».</p>
+</div>
+
+<div class="wrap">
+  <div class="filter-row">
+    <button class="pill active">Все</button>
+    <button class="pill">Сон</button>
+    <button class="pill">Питание</button>
+    <button class="pill">Психология</button>
+    <button class="pill">Спорт и тело</button>
+  </div>
+
+  <div class="grid-guides">
+    <div class="guide-card">
+      <div class="img"></div>
+      <span class="tag-chip">Гайд</span>
+      <h3>Что такое циркадные ритмы</h3>
+      <p>Разбираем, как устроены внутренние часы организма и почему их сбой отражается на всём — от сна до аппетита.</p>
+      <div class="meta">Редакция · 14 июля 2026</div>
+    </div>
+    <div class="guide-card">
+      <div class="img"></div>
+      <span class="tag-chip">Гайд</span>
+      <h3>Как сон влияет на вес</h3>
+      <p>Что говорят исследования о связи недосыпа с перееданием и метаболизмом.</p>
+      <div class="meta">Редакция · 10 июля 2026</div>
+    </div>
+    <div class="guide-card">
+      <div class="img"></div>
+      <span class="tag-chip">Гайд</span>
+      <h3>Что такое ультрапереработанная еда</h3>
+      <p>Как отличить её от просто обработанной и почему это разделение важно.</p>
+      <div class="meta">Редакция · 5 июля 2026</div>
+    </div>
+    <div class="guide-card">
+      <div class="img"></div>
+      <span class="tag-chip">Гайд</span>
+      <h3>Как работает стресс-реакция организма</h3>
+      <p>Что происходит в теле от первой секунды стресса до восстановления.</p>
+      <div class="meta">Редакция · 1 июля 2026</div>
+    </div>
+    <div class="guide-card">
+      <div class="img"></div>
+      <span class="tag-chip">Гайд</span>
+      <h3>Почему важен баланс белков, жиров и углеводов</h3>
+      <p>Простое объяснение того, зачем нужен каждый нутриент и что бывает при перекосе.</p>
+      <div class="meta">Редакция · 28 июня 2026</div>
+    </div>
+    <div class="guide-card">
+      <div class="img"></div>
+      <span class="tag-chip">Гайд</span>
+      <h3>Что делать, если не можете уснуть больше 20 минут</h3>
+      <p>Разбираем метод, который рекомендуют специалисты по сну.</p>
+      <div class="meta">Редакция · 24 июня 2026</div>
+    </div>
+  </div>
+
+  <div class="pagination">
+    <a href="#" class="active">1</a>
+    <a href="#">2</a>
+    <a href="#">→</a>
+  </div>
+</div>
+
+<footer id="contacts">
+  <div class="wrap">
+    <div class="footer-top">
+      <div>
+        <h4>Навигация</h4>
+        <ul>
+          <li><a href="tillo_journal_media_home.html">Главная</a></li>
+          <li><a href="tillo_journal_about.html">О нас</a></li>
+          <li><a href="tillo_journal_homepage.html">Сотрудничество</a></li>
+          <li><a href="tillo_journal_category_news.html">Новости</a></li>
+          <li><a href="tillo_journal_category_articles.html">Статьи</a></li>
+          <li><a href="#contacts">Контакты</a></li>
+        </ul>
+      </div>
+      <div class="footer-mid">
+        <h4 style="text-align:center;">Связаться с нами</h4>
+        <div class="mail">hello@tillo.life</div>
+        <p>По вопросам партнёрства и сотрудничества</p>
+        <a class="pill dark" href="tillo_journal_homepage.html">Стать партнером</a>
+      </div>
+      <div style="text-align:right;">
+        <h4>Социальные сети</h4>
+        <ul style="text-align:right;"><li>Instagram</li><li>Telegram</li></ul>
+      </div>
+    </div>
+
+    <h1 class="footer-wordmark"><a href="tillo_journal_media_home.html">TILLO JOURNAL</a></h1>
+
+    <div class="legal">
+      <div>Публичная оферта &nbsp; Политика конфиденциальности &nbsp; Согласие на обработку персональных данных</div>
+      <div>Разработка сайта</div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  var headerEl = document.querySelector('header');
+  function onScroll(){
+    if(window.scrollY > 40){ headerEl.classList.add('scrolled'); }
+    else{ headerEl.classList.remove('scrolled'); }
+  }
+  window.addEventListener('scroll', onScroll, {passive:true});
+  onScroll();
+</script>
+</body>
+</html>
