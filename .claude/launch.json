@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "tillo-journal-proto",
+      "runtimeExecutable": "npx",
+      "runtimeArgs": ["--yes", "serve", "tillo-journal-proto", "-l", "8080"],
+      "port": 8080
+    }
+  ]
+}

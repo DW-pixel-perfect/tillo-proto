@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>TILLO JOURNAL — О нас</title>
+<title>TILLO JOURNAL — Контакты</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;600;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -84,31 +84,6 @@
   .page-hero p{max-width:520px;font-size:15px;margin-top:24px;}
   .page-hero p b{font-weight:600;}
 
-  .about-grid{
-    display:grid;grid-template-columns:1fr 1.4fr;gap:40px;align-items:start;
-  }
-  .about-grid h2{font-size:clamp(26px,4vw,34px);max-width:260px;}
-  .about-grid p{max-width:480px;font-size:15px;margin-bottom:16px;}
-
-  .stat-row{
-    display:flex;gap:24px;justify-content:center;flex-wrap:wrap;margin-top:16px;
-  }
-  .stat-card{
-    background:var(--lav);border-radius:20px;
-    padding:36px 48px;text-align:center;min-width:220px;
-  }
-  .stat-card .num{font-family:'Unbounded',sans-serif;font-weight:800;font-size:34px;}
-  .stat-card .label{font-size:13px;color:var(--lav-text);margin-top:6px;}
-
-  .values h2{font-size:clamp(26px,4vw,34px);margin-bottom:8px;max-width:300px;}
-  .values .lede{font-size:13px;color:var(--muted);max-width:360px;margin-bottom:40px;}
-  .perk-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;}
-  .perk-card{
-    background:var(--card-bg);border-radius:16px;padding:24px;
-  }
-  .perk-card h3{font-family:'JetBrains Mono',monospace;font-weight:600;font-size:14px;margin-bottom:12px;}
-  .perk-card p{font-size:12px;color:var(--muted);}
-
   .team-section{background:var(--lav);}
   .team-section h2{font-size:clamp(26px,4vw,34px);margin-bottom:8px;}
   .team-section .lede{font-size:13px;color:var(--lav-text);max-width:360px;margin-bottom:48px;}
@@ -122,17 +97,6 @@
   }
   .team .name{font-weight:600;font-size:15px;margin-bottom:6px;}
   .team .role{font-size:12px;color:var(--lav-text);max-width:220px;margin:0 auto 16px;}
-
-  .partnership h2{font-size:clamp(28px,4.5vw,40px);margin-bottom:8px;}
-  .partnership .lede{
-    max-width:400px;color:var(--muted);font-size:13px;margin-bottom:40px;
-  }
-  .segments{display:grid;grid-template-columns:repeat(3,1fr);gap:40px;}
-  .segments h3{font-family:'JetBrains Mono',monospace;font-weight:600;font-size:16px;margin-bottom:14px;}
-  .segments ul{list-style:none;font-size:13px;color:var(--ink);}
-  .segments li{padding:4px 0;border-top:1px solid #eee;padding-top:8px;margin-top:8px;}
-  .segments li:first-child{border-top:none;margin-top:0;padding-top:0;}
-  .partnership .cta-row{margin-top:40px;}
 
   .cta{
     text-align:center;padding:120px 0;
@@ -156,17 +120,6 @@
   .footer-mid .mail{font-family:'Unbounded',sans-serif;font-weight:800;font-size:30px;margin-bottom:14px;}
   .footer-mid p{font-size:13px;color:var(--lav-text);margin-bottom:20px;}
   .footer-wordmark{font-size:clamp(40px,9vw,110px);padding:40px 0 0;}
-  .footer-team{
-    display:grid;grid-template-columns:repeat(3,1fr);gap:32px;
-    padding:50px 0 40px;
-  }
-  .footer-team .member{text-align:center;}
-  .footer-team .avatar{
-    width:110px;height:110px;border-radius:50%;background:var(--card-bg);
-    margin:0 auto 16px;background-size:cover;background-position:center;
-  }
-  .footer-team .name{font-weight:600;font-size:15px;margin-bottom:6px;}
-  .footer-team .role{font-size:12px;color:var(--lav-text);max-width:220px;margin:0 auto 16px;}
   .legal{
     display:flex;justify-content:space-between;font-size:11px;color:var(--lav-text);
     padding:24px 0;flex-wrap:wrap;gap:8px;
@@ -211,8 +164,7 @@
   #modalSuccess .pill{margin-top:16px;}
 
   @media(max-width:860px){
-    .about-grid,.footer-top,.team,.footer-team,.segments{grid-template-columns:1fr;}
-    .perk-grid{grid-template-columns:repeat(2,1fr);}
+    .footer-top,.team{grid-template-columns:1fr;}
     .nav ul{display:none;}
   }
 </style>
@@ -224,9 +176,8 @@
     <a class="logo" href="tillo_journal_media_home.html">TILLO JOURNAL</a>
     <ul>
       <li><a href="tillo_journal_media_home.html">Главная</a></li>
+      <li><a href="tillo_journal_about.html">О нас</a></li>
       <li><a href="tillo_journal_homepage.html">Сотрудничество</a></li>
-      <li><a href="tillo_journal_homepage.html#scenarios">Форматы сотрудничества</a></li>
-      <li><a href="tillo_journal_homepage.html#examples">Примеры интеграций</a></li>
       <li><a href="tillo_journal_contacts.html">Контакты</a></li>
     </ul>
   </div>
@@ -234,85 +185,35 @@
 
 <div class="page-hero">
   <div class="wrap">
-    <div class="eyebrow">О нас</div>
-    <h1 class="wordmark">Медиа, которое<br>смотрят до конца</h1>
-    <p>Мы находим интересные исследования и эксперименты и упаковываем их в формат динамичного рилса — <b>рассказываем так, что смотрят до конца.</b></p>
+    <div class="eyebrow">Контакты</div>
+    <h1 class="wordmark">Обсудим ваш<br>проект</h1>
+    <p>Пишите нам напрямую или оставьте заявку — расскажем про форматы интеграций и пришлём до 5 идей под ваш бренд.</p>
   </div>
 </div>
 
-<section>
-  <div class="wrap about-grid">
-    <h2>Что такое<br>Tillo Journal</h2>
-    <div>
-      <p>Tillo Journal — медиапроект о физическом и психологическом благополучии. Мы делаем качественную журналистику в популярной форме: превращаем исследования и научные данные в короткий, динамичный формат, который смотрят до конца и которым делятся с близкими.</p>
-      <p>Помогаем брендам, экспертам и wellness-проектам становиться частью этой истории — через нативные интеграции, а не прямую рекламу.</p>
-      <div class="stat-row" style="justify-content:flex-start;">
-        <div class="stat-card"><div class="num">45 тыс.</div><div class="label">подписчиков</div></div>
-        <div class="stat-card"><div class="num">5 млн.</div><div class="label">просмотров</div></div>
-        <div class="stat-card"><div class="num">3 млн.</div><div class="label">охват аккаунта</div></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="values">
+<section class="team-section">
   <div class="wrap">
-    <h2>Наш подход</h2>
-    <p class="lede">Мы ищем партнеров, разделяющих наш подход: факты, источники и уважение к читателю.</p>
-    <div class="perk-grid">
-      <div class="perk-card">
-        <h3>Основано на исследованиях</h3>
-        <p>В основе каждого ролика — реальные данные, а не домыслы</p>
+    <h2>Команда</h2>
+    <p class="lede">Свяжитесь с тем, кто ведёт направление, близкое вашему бренду.</p>
+    <div class="team">
+      <div class="member">
+        <div class="avatar"></div>
+        <div class="name">Марианна Лушникова</div>
+        <div class="role">масштабные рекламные кампании и спецпроекты</div>
+        <button class="pill" data-open-modal="Написать Марианне">Написать</button>
       </div>
-      <div class="perk-card">
-        <h3>Нативность без рекламы в лоб</h3>
-        <p>Бренд органично встроен в тему, а не вставлен рекламным блоком</p>
+      <div class="member">
+        <div class="avatar"></div>
+        <div class="name">Елизавета Подколзина</div>
+        <div class="role">нативные интеграции, коллаборации в сфере психологии, культуры, красоты и образования</div>
+        <button class="pill" data-open-modal="Написать Елизавете">Написать</button>
       </div>
-      <div class="perk-card">
-        <h3>Досматриваемость</h3>
-        <p>Работаем с удержанием внимания и эмоциональной вовлеченностью</p>
+      <div class="member">
+        <div class="avatar"></div>
+        <div class="name">Даниил Рази</div>
+        <div class="role">рекламные кампании, интеграции с брендами в сфере спорта, медицины, здоровья и мотивации</div>
+        <button class="pill" data-open-modal="Написать Даниилу">Написать</button>
       </div>
-      <div class="perk-card">
-        <h3>Уважение к читателю</h3>
-        <p>Объясняем сложное простым языком, без обесценивания и кликбейта</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="partnership">
-  <div class="wrap">
-    <div class="eyebrow">Для кого мы</div>
-    <h2>С кем мы работаем</h2>
-    <p class="lede">Работаем с теми, кто формирует культуру здоровья — физического и ментального.</p>
-    <div class="segments">
-      <div>
-        <h3>Эксперты в сфере здоровья</h3>
-        <ul>
-          <li>Психологи, психотерапевты, коучи</li>
-          <li>Йога, пилатес, дыхание, соматика</li>
-          <li>Нутрициологи, health-коучи</li>
-        </ul>
-      </div>
-      <div>
-        <h3>Бренды</h3>
-        <ul>
-          <li>БАДы, витамины, функциональное питание</li>
-          <li>Приложения, сервисы терапии, подписки</li>
-          <li>Wellness-бренды образа жизни</li>
-        </ul>
-      </div>
-      <div>
-        <h3>Проекты и пространства</h3>
-        <ul>
-          <li>Йога-студии, ретрит-центры, wellness-клубы</li>
-          <li>Образовательные проекты, курсы, школы, комьюнити</li>
-          <li>Журналы, блоги, платформы про осознанность и здоровье</li>
-        </ul>
-      </div>
-    </div>
-    <div class="cta-row">
-      <button class="pill dark" data-open-modal="Обсудить сотрудничество">Обсудить сотрудничество</button>
     </div>
   </div>
 </section>
@@ -325,18 +226,28 @@
   </div>
 </section>
 
-<footer>
+<footer id="contacts">
   <div class="wrap">
-    <div class="footer-top" style="grid-template-columns:1fr;max-width:340px;margin:0 auto;text-align:center;">
+    <div class="footer-top">
       <div>
         <h4>Навигация</h4>
         <ul>
           <li><a href="tillo_journal_media_home.html">Главная</a></li>
           <li><a href="tillo_journal_about.html">О нас</a></li>
           <li><a href="tillo_journal_homepage.html">Сотрудничество</a></li>
-          <li><a href="tillo_journal_homepage.html#scenarios">Форматы сотрудничества</a></li>
-          <li><a href="tillo_journal_homepage.html#examples">Примеры интеграций</a></li>
           <li><a href="tillo_journal_contacts.html">Контакты</a></li>
+        </ul>
+      </div>
+      <div class="footer-mid">
+        <h4 style="text-align:center;">Связаться с нами</h4>
+        <div class="mail">hello@tillo.life</div>
+        <p>Оставьте заявку и получите до 5 идей для интеграции</p>
+        <button class="pill" data-open-modal="Стать партнером">Стать партнером</button>
+      </div>
+      <div style="text-align:right;">
+        <h4>Социальные сети</h4>
+        <ul style="text-align:right;">
+          <li>Instagram</li><li>Telegram</li>
         </ul>
       </div>
     </div>
@@ -418,7 +329,9 @@
     var defaultSub = 'Оставьте заявку — пришлём до 5 идей интеграции для вашего бренда';
     var subs = {
       'Стать партнером': defaultSub,
-      'Обсудить сотрудничество': 'Расскажите о бренде — подберём формат и пришлём идеи интеграций',
+      'Написать Марианне': 'Расскажите о задаче — Марианна свяжется с вами лично',
+      'Написать Елизавете': 'Расскажите о задаче — Елизавета свяжется с вами лично',
+      'Написать Даниилу': 'Расскажите о задаче — Даниил свяжется с вами лично',
       'Оставить заявку': defaultSub
     };
 
