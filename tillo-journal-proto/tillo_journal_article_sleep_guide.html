@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Как заснуть за 10 секунд, за минуту или за две — TILLO JOURNAL</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;600;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#111111;
+    --muted:#6b6f7a;
+    --lav:#c9cffb;
+    --lav-deep:#9aa3ee;
+    --lav-text:#2c2f66;
+    --pink:#ffc6e4;
+    --mint:#bdeecb;
+    --card-bg:#f4f4f2;
+    --white:#ffffff;
+    --maxw:1200px;
+    --article-w:720px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{
+    font-family:'JetBrains Mono', monospace;
+    color:var(--ink);
+    background:var(--white);
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3,h4,.wordmark{
+    font-family:'Unbounded', sans-serif;
+    font-weight:800;
+    letter-spacing:-0.01em;
+    line-height:1.08;
+  }
+  a{color:inherit;text-decoration:none;}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 40px;}
+  .narrow{max-width:var(--article-w);margin:0 auto;padding:0 40px;}
+  .pill{
+    display:inline-block;background:var(--lav-deep);color:var(--lav-text);
+    font-family:'JetBrains Mono',monospace;font-weight:600;font-size:14px;
+    padding:14px 28px;border-radius:999px;border:none;cursor:pointer;
+  }
+  .pill.dark{background:var(--ink);color:#fff;}
+
+  header{
+    position:sticky;top:0;z-index:50;background:rgba(255,255,255,0);
+    transition:background .25s ease, box-shadow .25s ease, backdrop-filter .25s ease;
+  }
+  header.scrolled{
+    background:rgba(255,255,255,0.88);backdrop-filter:blur(10px);
+    -webkit-backdrop-filter:blur(10px);box-shadow:0 1px 0 rgba(17,17,17,0.08);
+  }
+  .nav{display:flex;align-items:center;justify-content:space-between;padding:24px 0;}
+  .logo{font-family:'Unbounded',sans-serif;font-weight:800;font-size:18px;}
+  .nav ul{list-style:none;display:flex;gap:30px;font-size:13px;}
+
+  .breadcrumbs{font-size:12px;color:var(--muted);padding:20px 0 0;}
+  .breadcrumbs a{color:var(--lav-text);}
+
+  .tag-chip{
+    display:inline-block;background:#ffe1ef;color:#8a2f57;
+    font-size:11px;font-weight:600;padding:5px 12px;border-radius:999px;
+    text-transform:uppercase;letter-spacing:0.03em;margin:20px 0 16px;
+  }
+  .tag-chip.guide{background:var(--lav);color:var(--lav-text);}
+
+  .toggle-flag{
+    display:inline-flex;align-items:center;gap:6px;
+    font-size:10px;color:var(--lav-text);background:var(--lav);
+    padding:4px 10px;border-radius:999px;margin-bottom:14px;
+    text-transform:uppercase;letter-spacing:0.03em;font-weight:600;
+  }
+  .toggle-block{border:1px dashed #d7d9e6;border-radius:16px;padding:24px;margin:36px 0;}
+
+  h1.title{font-size:clamp(28px,4.6vw,44px);margin-bottom:18px;}
+  .lead{font-size:16px;color:var(--muted);margin-bottom:28px;}
+
+  .featured-img{width:100%;aspect-ratio:16/9;background:var(--card-bg);border-radius:16px;margin-bottom:8px;}
+  .img-cap{font-size:11px;color:var(--muted);margin-bottom:28px;}
+
+  .meta-row{
+    display:flex;flex-wrap:wrap;gap:16px;align-items:center;
+    font-size:12px;color:var(--muted);margin-bottom:36px;
+    border-top:1px solid #ececef;border-bottom:1px solid #ececef;padding:16px 0;
+  }
+  .meta-row a{font-weight:600;color:var(--lav-text);}
+  .meta-sep{color:#ccc;}
+  .meta-row .placeholder{color:#b6b9c4;}
+
+  .expert-banner{
+    display:flex;align-items:center;gap:14px;
+    background:var(--lav);border-radius:14px;padding:14px 18px;margin-bottom:28px;
+  }
+  .expert-banner .avatar{width:40px;height:40px;border-radius:50%;background:var(--card-bg);flex:0 0 auto;}
+  .expert-banner p{font-size:12px;color:var(--lav-text);}
+  .expert-banner a{font-weight:600;text-decoration:underline;}
+
+  .article-body h2{font-size:22px;margin:36px 0 14px;}
+  .article-body h3{font-size:18px;margin:28px 0 12px;}
+  .article-body h4{font-size:15px;margin:20px 0 8px;}
+  .article-body p{font-size:15px;margin-bottom:16px;}
+  .article-body ul{margin:0 0 16px 20px;font-size:15px;}
+  .article-body li{margin-bottom:6px;}
+  .body-img{width:100%;aspect-ratio:16/9;background:var(--card-bg);border-radius:14px;margin:20px 0 8px;}
+  .body-img-cap{font-size:11px;color:var(--muted);margin-bottom:20px;}
+
+  .video-embed{
+    width:100%;aspect-ratio:16/9;background:var(--ink);border-radius:14px;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;
+    color:#fff;font-size:12px;margin:20px 0 8px;text-align:center;padding:20px;
+  }
+  .video-embed a{text-decoration:underline;}
+  .video-cap{font-size:11px;color:var(--muted);margin-bottom:20px;}
+
+  .callout{
+    background:var(--mint);border-radius:16px;padding:24px 28px;margin:28px 0;
+  }
+  .callout p{font-size:14px;margin-bottom:12px;}
+  .callout ul{margin:0 0 12px 20px;font-size:14px;}
+  .callout li{margin-bottom:6px;}
+  .callout p:last-child{margin-bottom:0;}
+
+  .note{
+    border-left:3px solid var(--lav-deep);background:var(--card-bg);
+    border-radius:0 12px 12px 0;padding:14px 18px;margin:20px 0;font-size:13px;color:var(--muted);
+  }
+  .note b{color:var(--ink);}
+
+  .study-card{background:var(--card-bg);border-radius:16px;padding:24px;}
+  .study-card h3{font-family:'Unbounded',sans-serif;font-weight:600;font-size:16px;margin-bottom:14px;}
+  .study-table{width:100%;font-size:13px;}
+  .study-table td{padding:6px 0;vertical-align:top;border-top:1px solid #e5e5e9;}
+  .study-table td:first-child{color:var(--muted);width:180px;}
+  .study-table tr:first-child td{border-top:none;}
+  .tbd{color:#b6b9c4;}
+
+  .sources h3,.related h3{font-family:'Unbounded',sans-serif;font-weight:600;font-size:16px;margin-bottom:16px;}
+  .source-item{font-size:13px;padding:10px 0;border-top:1px solid #ececef;}
+  .source-item:first-child{border-top:none;}
+  .source-item .src-title{font-weight:600;}
+  .source-item .src-meta{color:var(--muted);font-size:12px;}
+
+  .related-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+  .related-card .img{width:100%;aspect-ratio:16/10;border-radius:12px;background:var(--card-bg);margin-bottom:10px;}
+  .related-card h4{font-family:'Unbounded',sans-serif;font-weight:600;font-size:14px;line-height:1.25;margin:0;}
+
+  .author-block{display:flex;gap:16px;align-items:flex-start;}
+  .author-block .avatar{width:56px;height:56px;border-radius:50%;background:var(--card-bg);flex:0 0 auto;}
+  .author-block h3{font-family:'Unbounded',sans-serif;font-weight:600;font-size:15px;margin-bottom:6px;}
+  .author-block p{font-size:12px;color:var(--muted);margin-bottom:8px;}
+  .author-block a.pill{padding:8px 18px;font-size:12px;}
+
+  .cta-block{background:var(--lav);border-radius:16px;padding:28px;text-align:center;}
+  .cta-block h3{font-family:'Unbounded',sans-serif;font-weight:700;font-size:18px;margin-bottom:8px;}
+  .cta-block p{font-size:13px;color:var(--lav-text);margin-bottom:16px;}
+
+  .cms-panel{
+    background:var(--ink);color:#eee;border-radius:16px;padding:28px;font-size:12px;
+  }
+  .cms-panel h3{font-family:'Unbounded',sans-serif;font-weight:600;font-size:14px;color:#fff;margin-bottom:14px;}
+  .cms-panel .row{display:flex;justify-content:space-between;padding:6px 0;border-top:1px solid rgba(255,255,255,0.12);gap:16px;}
+  .cms-panel .row:first-child{border-top:none;}
+  .cms-panel .k{color:#9aa0b5;}
+  .cms-panel .v{text-align:right;color:#fff;}
+  .cms-panel .v.tbd{color:#6b7086;}
+
+  footer{background:linear-gradient(120deg,var(--mint) 0%, var(--lav) 60%);padding-top:80px;margin-top:80px;}
+  .footer-top{display:grid;grid-template-columns:1fr 1.4fr 1fr;gap:32px;padding-bottom:70px;}
+  .footer-top h4{font-size:13px;font-weight:600;margin-bottom:16px;}
+  .footer-top ul{list-style:none;font-size:13px;}
+  .footer-top li{padding:5px 0;}
+  .footer-mid{text-align:center;}
+  .footer-mid .mail{font-family:'Unbounded',sans-serif;font-weight:800;font-size:30px;margin-bottom:14px;}
+  .footer-mid p{font-size:13px;color:var(--lav-text);margin-bottom:20px;}
+  .footer-wordmark{font-size:clamp(40px,9vw,110px);padding:40px 0 0;line-height:0.98;}
+  .team{display:grid;grid-template-columns:repeat(3,1fr);gap:32px;padding:50px 0 40px;}
+  .team .member{text-align:center;}
+  .team .avatar{width:110px;height:110px;border-radius:50%;background:var(--card-bg);margin:0 auto 16px;}
+  .team .name{font-weight:600;font-size:15px;margin-bottom:6px;}
+  .team .role{font-size:12px;color:var(--lav-text);max-width:220px;margin:0 auto 16px;}
+  .legal{display:flex;justify-content:space-between;font-size:11px;color:var(--lav-text);padding:24px 0;flex-wrap:wrap;gap:8px;}
+
+  @media(max-width:860px){
+    .footer-top,.team,.related-grid{grid-template-columns:1fr;}
+    .nav ul{display:none;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <a class="logo" href="tillo_journal_media_home.html">TILLO JOURNAL</a>
+    <ul>
+      <li><a href="tillo_journal_category_news.html">Новости</a></li>
+      <li><a href="tillo_journal_category_guides.html">Гайды</a></li>
+      <li><a href="tillo_journal_category_articles.html">Статьи</a></li>
+      <li><a href="tillo_journal_homepage.html">Сотрудничество</a></li>
+      <li><a href="tillo_journal_contacts.html">Контакты</a></li>
+    </ul>
+  </div>
+</header>
+
+<div class="narrow breadcrumbs">
+  <a href="tillo_journal_media_home.html">Главная</a> / <a href="tillo_journal_category_guides.html">Гайды</a> / Как быстро заснуть
+</div>
+
+<article class="narrow">
+  <span class="tag-chip guide">Гайд</span>
+
+  <div class="expert-banner">
+    <div class="avatar"></div>
+    <p>Этот текст проверил(а) <a href="#">сомнолог Ивана Иванова, клиника «Сон и дитя»</a> · <span class="toggle-flag" style="margin:0;background:rgba(255,255,255,0.5);">отключаемый блок</span></p>
+  </div>
+
+  <h1 class="title">Как заснуть за 10 секунд, за минуту или за две: инструкция Tillo</h1>
+  <p class="lead">Техники расслабления и дыхания, визуализация образов и улучшение гигиены сна: эти методы позволят тебе справиться с бессонницей.</p>
+
+  <div class="featured-img"></div>
+  <p class="img-cap">Фото: Грег Паппас, Unsplash</p>
+
+  <div class="meta-row">
+    <span>Автор: <a href="#">Редакция Tillo</a></span>
+    <span class="meta-sep">·</span>
+    <span class="placeholder">Опубликовано: [дата публикации]</span>
+    <span class="meta-sep">·</span>
+    <span class="placeholder">Обновлено: [дата обновления]</span>
+  </div>
+
+  <div class="article-body">
+    <p>Засыпаешь дольше, чем потом спишь? Это не только твоя проблема. 4 из 10 жителей России сталкиваются с недосыпом, а ведь большинству взрослых необходимы 7–9 часов сна в сутки. Недостаток сна может приводить к постоянной усталости и раздражительности, ухудшать концентрацию и память, а в долгосрочной перспективе связан с повышенным риском депрессии, тревожных расстройств, сердечно-сосудистых заболеваний, диабета и ожирения.</p>
+    <p>При этом слишком настойчивые попытки уснуть иногда только мешают: возникает тревога из-за того, что сон никак не приходит, а напряжение не даёт расслабиться.</p>
+
+    <div class="callout">
+      <p>Перед тем как переходить к специальным техникам, проверь три вещи:</p>
+      <ul>
+        <li>Соблюдаешь ли ты постоянный режим сна</li>
+        <li>Достаточно ли в спальне темно, тихо и комфортно</li>
+        <li>Получаешь ли ты днём достаточно света и физической активности и не злоупотребляешь ли кофеином</li>
+      </ul>
+      <p>Ложиться и вставать в одно время, убирать свет и отказаться от гаджетов в спальне — это первые советы, которые тебе даст любой сомнолог.</p>
+    </div>
+
+    <div class="body-img"></div>
+    <p class="body-img-cap">Фото: Levi Stut, Unsplash</p>
+
+    <h2>Как заснуть за 10 секунд: военный метод</h2>
+    <p>Метод засыпания из книги «Расслабься, чтобы победить» часто приписывают американским военным — но эта легенда, возможно, единственный его источник<span class="tbd">&nbsp;[уточнить у автора — фраза обрывается в исходном тексте]</span>.</p>
+    <p>О чём речь? Твоя задача — расслабить тело, а затем сконцентрироваться на собственном дыхании.</p>
+    <ul>
+      <li>Устройся поудобнее, тебе должно быть комфортно.</li>
+      <li>Расслабь мышцы лица и челюсть. Убери напряжение в области лба.</li>
+      <li>Расслабь плечи, руки и кисти. Переведи внимание на тело и живот и расслабь мышцы живота. Затем — бёдра, стопы и пальцы ног.</li>
+      <li>С каждым выдохом представляй, что тело становится тяжелее и тонет в кровати.</li>
+      <li>Представь себя в гамаке или лодке под спокойным небом, очисти мысли и продолжай дышать.</li>
+      <li>Продолжай концентрироваться на вдохах и медленных выдохах.</li>
+    </ul>
+    <p>На самом деле весь метод занимает не десять секунд, а до двух минут. Те самые «10 секунд» — скорее финальная стадия, когда тело уже расслаблено.</p>
+    <p>Почему этот метод может работать? Прямых исследований именно этой последовательности эксперты не знают. Но отдельные её компоненты — медленное дыхание, прогрессивная мышечная релаксация и визуализация — действительно могут снижать напряжение.</p>
+
+    <h2>Как заснуть примерно за минуту</h2>
+    <div class="body-img"></div>
+    <p class="body-img-cap">Фото: Dane Wetton, Unsplash</p>
+    <p>Следующие техники помогают переключить внимание с попыток уснуть на дыхание и ощущения в теле.</p>
+    <p>Если пробуешь их впервые, понадобится скорее до двух минут, чем ровно 60 секунд.</p>
+
+    <h3>Дыхание 4–7–8</h3>
+    <p>Технику популяризировал врач Эндрю Вейл. Она основана на дыхательных практиках пранаямы — практики из йоги.</p>
+    <p>Перед началом прижми кончик языка к нёбу сразу за верхними передними зубами и оставляй его там на протяжении всего упражнения.</p>
+    <p>Один цикл выглядит так:</p>
+    <ul>
+      <li>Слегка разомкни губы и полностью выдохни через рот.</li>
+      <li>Закрой рот и спокойно вдохни через нос, считая до четырёх.</li>
+      <li>Задержи дыхание на семь секунд.</li>
+      <li>Медленно выдыхай через рот в течение восьми секунд.</li>
+      <li>После этого снова вдохни и начни следующий цикл.</li>
+    </ul>
+    <p>Повтори четыре раза. Если почувствуешь, что начинаешь засыпать раньше, продолжать не обязательно.</p>
+
+    <div class="note"><b>Важно:</b> если у тебя астма, хроническая обструктивная болезнь лёгких или другое заболевание дыхательной системы, перед практиками с задержкой дыхания лучше проконсультироваться с врачом.</div>
+
+    <div class="body-img"></div>
+    <p class="body-img-cap">Фото: Cate the Kitty, Catsplash</p>
+
+    <h3>Прогрессивная мышечная релаксация</h3>
+    <p>Суть этого метода, очень похожего на описанный выше «военный», в том, чтобы по очереди ненадолго напрягать разные группы мышц, а затем полностью их расслаблять.</p>
+    <p>Важно именно напрягать мышцы, а не доводить их до боли или судороги.</p>
+    <p>Попробуй так:</p>
+    <ul>
+      <li>Подними брови как можно выше и удерживай напряжение пять секунд.</li>
+      <li>Полностью расслабь лоб и подожди десять секунд.</li>
+      <li>Широко улыбнись, напрягая мышцы щёк. Удерживай пять секунд, затем расслабься.</li>
+      <li>Подожди десять секунд.</li>
+      <li>Сильно зажмурься на пять секунд, затем расслабь глаза.</li>
+      <li>Снова подожди десять секунд.</li>
+      <li>Слегка откинь голову назад, удерживай положение пять секунд, а затем расслабь шею и опусти голову на подушку.</li>
+      <li>Продолжай двигаться вниз по телу: плечи, руки, грудь, живот, бёдра, голени и стопы.</li>
+    </ul>
+    <p>Не обязательно заканчивать упражнение целиком. Если начинаешь засыпать в середине, просто позволь себе уснуть.</p>
+    <p>Смысл в том, чтобы замечать контраст между напряжением и расслаблением и концентрироваться на ощущении тяжести в теле.</p>
+
+    <h2>Что попробовать, если за две минуты всё равно не получается</h2>
+
+    <h3>Попробуй не засыпать</h3>
+    <p>Звучит парадоксально, но некоторым людям с бессонницей может помогать намеренная попытка оставаться бодрствующими.</p>
+    <p>Техника так и называется — парадоксальное намерение. Вместо того чтобы лежать и заставлять себя заснуть, человек разрешает себе бодрствовать.</p>
+    <p>Исследования показывают, что такой подход может уменьшать тревогу, связанную с необходимостью заснуть. Иногда именно она поддерживает бессонницу: чем сильнее пытаешься уснуть, тем внимательнее следишь, получилось ли это, и тем труднее расслабиться.</p>
+    <p>Исследований метода пока немного, поэтому считать его гарантированно эффективным нельзя.</p>
+
+    <h3>Представь спокойное место</h3>
+    <p>Если подсчёт овец или другие однообразные задачи только сильнее активируют мозг, попробуй использовать воображение.</p>
+    <p>В одном исследовании Оксфордского университета люди, которым предложили представлять приятные и спокойные сцены, засыпали быстрее тех, кому советовали просто отвлекаться от мыслей.</p>
+    <p>Попробуй как можно подробнее представить тихое место. Например, водопад: шум воды, влажный воздух, запах мха, прохладу на коже.</p>
+    <p>Смысл в том, чтобы занять сознание этим образом и не возвращаться к мыслям о прошедшем дне, завтрашних делах или о том, почему ты до сих пор не спишь.</p>
+
+    <h3>Акупрессура</h3>
+    <p>Некоторые исследования предполагают, что акупрессура может сокращать время засыпания и увеличивать продолжительность сна. Научных доказательств этой техники немного, но если тебе поможет, то зачем тут наука.</p>
+    <p>Если хочется попробовать, обычно используют несколько точек.</p>
+
+    <h4>На запястье со стороны мизинца</h4>
+    <p>Найди небольшое углубление у основания ладони со стороны мизинца и мягко массируй его круговыми движениями или движениями вверх-вниз в течение двух-трёх минут. Затем повтори на другой руке.</p>
+
+    <h4>На внутренней стороне предплечья</h4>
+    <p>Поверни ладонь вверх и отмерь примерно три ширины пальца вниз от складки запястья. Между двумя сухожилиями мягко надавливай большим пальцем или массируй эту область до появления ощущения расслабления.</p>
+
+    <h4>У основания черепа</h4>
+    <p>Помести большие пальцы в углубления по обе стороны от места, где шея соединяется с основанием черепа. Массируй эту область круговыми движениями и глубоко дыши.</p>
+
+    <h2>Почему иногда вообще не получается заснуть</h2>
+
+    <div class="video-embed">
+      <div>embed-видео (Instagram Reels)</div>
+      <a href="https://www.instagram.com/p/DWEcm0rjEv1/" target="_blank" rel="noopener">Смотреть в Instagram →</a>
+    </div>
+    <p class="video-cap">Видео для врезки указано автором по ссылке выше</p>
+
+    <p>Причин может быть много. Среди распространённых:</p>
+    <ul>
+      <li>Стресс, тревожность или сниженное настроение</li>
+      <li>Свет, шум или неудобная кровать</li>
+      <li>Слишком много кофеина</li>
+      <li>Недостаток дневного света</li>
+      <li>Недостаток физической активности</li>
+      <li>Слишком много времени перед экраном</li>
+      <li>Дневной сон</li>
+      <li>Сбившийся циркадный ритм</li>
+      <li>Поздний плотный ужин</li>
+      <li>Некоторые лекарства</li>
+    </ul>
+    <p>Иногда проблема не в одной конкретной причине, а в сочетании нескольких факторов. Если трудности с засыпанием возникают регулярно и не проходят, несмотря на нормальный режим и комфортные условия для сна, лучше обсудить это с врачом и разобраться в возможной причине.</p>
+  </div>
+
+  <div class="toggle-block sources">
+    <span class="toggle-flag">отключаемый блок · источники</span>
+    <h3>Источники</h3>
+    <div class="source-item">
+      <div class="src-title tbd">[добавить ссылку на исследование Оксфордского университета про визуализацию образов и засыпание]</div>
+    </div>
+    <div class="source-item">
+      <div class="src-title tbd">[добавить ссылку на книгу «Расслабься, чтобы победить» / первоисточник военного метода]</div>
+    </div>
+    <div class="source-item">
+      <div class="src-title tbd">[добавить источники по акупрессуре и парадоксальному намерению]</div>
+    </div>
+  </div>
+
+  <div class="toggle-block related">
+    <span class="toggle-flag">отключаемый блок · связанные статьи</span>
+    <h3>Связанные статьи</h3>
+    <div class="related-grid">
+      <div class="related-card">
+        <div class="img"></div>
+        <h4>Что делать, если не можете уснуть больше 20 минут</h4>
+      </div>
+      <div class="related-card">
+        <div class="img"></div>
+        <h4>Что такое циркадные ритмы</h4>
+      </div>
+      <div class="related-card">
+        <div class="img"></div>
+        <h4>Как сон влияет на вес</h4>
+      </div>
+    </div>
+  </div>
+
+  <div class="toggle-block author-block">
+    <span class="toggle-flag" style="position:absolute;transform:translateY(-38px);">отключаемый блок · автор</span>
+    <div class="avatar"></div>
+    <div>
+      <h3>Редакция Tillo</h3>
+      <p>Собирает и проверяет практические техники сна и восстановления для Tillo Journal.</p>
+      <a class="pill" href="#">Профиль автора</a>
+    </div>
+  </div>
+
+  <div class="toggle-block cta-block">
+    <span class="toggle-flag">отключаемый блок · CTA</span>
+    <h3>Не пропустите следующий разбор</h3>
+    <p>Раз в неделю — самые важные материалы о здоровье и wellness</p>
+    <a class="pill dark" href="tillo_journal_category_guides.html">Подписаться</a>
+  </div>
+
+  <div class="cms-panel" style="margin-top:40px;">
+    <h3>Внутренние поля (не отображаются на странице)</h3>
+    <div class="row"><span class="k">SEO title</span><span class="v">Как быстро заснуть: техники на 10 секунд, минуту и две — Tillo Journal</span></div>
+    <div class="row"><span class="k">SEO description</span><span class="v">Дыхательные техники, мышечная релаксация, визуализация и акупрессура — рабочие методы против бессонницы</span></div>
+    <div class="row"><span class="k">Slug</span><span class="v">/kak-zasnut-za-10-sekund/</span></div>
+    <div class="row"><span class="k">OG title</span><span class="v">Как заснуть за 10 секунд, минуту или две</span></div>
+    <div class="row"><span class="k">OG description</span><span class="v">Инструкция Tillo: техники дыхания, релаксации и визуализации от бессонницы</span></div>
+    <div class="row"><span class="k">OG image</span><span class="v tbd">[og/kak-zasnut.jpg]</span></div>
+    <div class="row"><span class="k">Тип разметки</span><span class="v">Article</span></div>
+    <div class="row"><span class="k">Категория</span><span class="v">Гайды → Сон</span></div>
+    <div class="row"><span class="k">Дата публикации</span><span class="v tbd">[не указана в исходнике]</span></div>
+    <div class="row"><span class="k">Медицинская проверка</span><span class="v">сомнолог Ивана Иванова, клиника «Сон и дитя»</span></div>
+  </div>
+</article>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-top" style="grid-template-columns:1fr;max-width:340px;margin:0 auto;text-align:center;">
+      <div>
+        <h4>Навигация</h4>
+        <ul>
+          <li><a href="tillo_journal_media_home.html">Главная</a></li>
+          <li><a href="tillo_journal_about.html">О нас</a></li>
+          <li><a href="tillo_journal_homepage.html">Сотрудничество</a></li>
+          <li><a href="tillo_journal_category_guides.html">Гайды</a></li>
+          <li><a href="tillo_journal_category_articles.html">Статьи</a></li>
+          <li><a href="tillo_journal_contacts.html">Контакты</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <h1 class="footer-wordmark"><a href="tillo_journal_media_home.html">TILLO JOURNAL</a></h1>
+
+    <div class="legal">
+      <div>Публичная оферта &nbsp; Политика конфиденциальности &nbsp; Согласие на обработку персональных данных</div>
+      <div>Разработка сайта</div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  var headerEl = document.querySelector('header');
+  function onScroll(){
+    if(window.scrollY > 40){ headerEl.classList.add('scrolled'); }
+    else{ headerEl.classList.remove('scrolled'); }
+  }
+  window.addEventListener('scroll', onScroll, {passive:true});
+  onScroll();
+</script>
+</body>
+</html>
