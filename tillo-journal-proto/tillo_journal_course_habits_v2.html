@@ -49,8 +49,9 @@
   .hero-banner{
     position:relative;min-height:560px;display:flex;align-items:flex-end;
     background:
-      linear-gradient(0deg, rgba(10,8,16,0.88) 0%, rgba(10,8,16,0.25) 55%, rgba(10,8,16,0.05) 100%),
-      linear-gradient(135deg,var(--peach) 0%, var(--pink) 45%, var(--lav) 75%, var(--mint) 100%);
+      linear-gradient(0deg, rgba(10,8,16,0.88) 0%, rgba(10,8,16,0.25) 55%, rgba(10,8,16,0.15) 100%),
+      linear-gradient(135deg, rgba(255,180,115,0.55) 0%, rgba(255,143,198,0.4) 45%, rgba(185,166,255,0.4) 100%),
+      url('https://images.unsplash.com/photo-1498837167922-ddd27525d352?w=1600&h=900&fit=crop&auto=format&q=75') center/cover;
     padding-top:90px;
   }
   .hero-banner-inner{position:relative;padding:60px 0 56px;color:#fff;}
@@ -68,7 +69,7 @@
 
   /* intro split with image */
   .intro-grid{display:grid;grid-template-columns:1fr 1fr;gap:52px;align-items:center;}
-  .intro-img{aspect-ratio:4/3;border-radius:24px;background:linear-gradient(135deg,var(--mint),var(--lav));}
+  .intro-img{aspect-ratio:4/3;border-radius:24px;background:url('https://images.unsplash.com/photo-1490818387583-1baba5e638af?w=900&h=700&fit=crop&auto=format&q=75') center/cover;}
   .intro-text h2{font-size:clamp(24px,3.4vw,34px);margin-bottom:16px;}
   .intro-text p{font-size:15px;color:#3a3a44;margin-bottom:14px;}
 
@@ -77,15 +78,19 @@
   .section-head h2{font-size:clamp(26px,4vw,38px);}
   .module-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:24px;}
   .module-card{background:var(--white);border:1px solid #ececef;border-radius:22px;overflow:hidden;}
-  .module-card .cover{height:150px;position:relative;}
+  .module-card .cover{height:150px;position:relative;background-size:cover;background-position:center;}
+  .module-card .cover::before{
+    content:"";position:absolute;inset:0;
+    background:linear-gradient(0deg, rgba(10,8,16,0.65) 0%, rgba(10,8,16,0.05) 60%);
+  }
   .module-card .cover .mod-num{
     position:absolute;left:18px;bottom:14px;color:#fff;font-family:'Unbounded',sans-serif;
-    font-weight:800;font-size:13px;text-transform:uppercase;letter-spacing:0.04em;
+    font-weight:800;font-size:13px;text-transform:uppercase;letter-spacing:0.04em;z-index:1;
   }
-  .module-card .cover.m1{background:linear-gradient(135deg,var(--peach),var(--pink));}
-  .module-card .cover.m2{background:linear-gradient(135deg,var(--pink),var(--lav));}
-  .module-card .cover.m3{background:linear-gradient(135deg,var(--lav),var(--mint));}
-  .module-card .cover.m4{background:linear-gradient(135deg,var(--mint),var(--peach));}
+  .module-card .cover.m1{background-image:url('https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=800&h=400&fit=crop&auto=format&q=70');}
+  .module-card .cover.m2{background-image:url('https://images.unsplash.com/photo-1512058564366-18510be2db19?w=800&h=400&fit=crop&auto=format&q=70');}
+  .module-card .cover.m3{background-image:url('https://images.unsplash.com/photo-1490474418585-ba9bad8fd0ea?w=800&h=400&fit=crop&auto=format&q=70');}
+  .module-card .cover.m4{background-image:url('https://images.unsplash.com/photo-1542838132-92c53300491e?w=800&h=400&fit=crop&auto=format&q=70');}
   .module-card .body{padding:24px 26px 28px;}
   .module-card h3{font-size:19px;margin-bottom:8px;}
   .module-card .mod-role{font-size:13px;color:var(--muted);margin-bottom:20px;}
@@ -135,7 +140,7 @@
     display:flex;align-items:center;justify-content:center;text-align:center;padding:50px;
     background:
       linear-gradient(0deg, rgba(10,8,16,0.72), rgba(10,8,16,0.55)),
-      linear-gradient(135deg,var(--lav) 0%, var(--pink) 50%, var(--peach) 100%);
+      url('https://images.unsplash.com/photo-1543362906-acfc16c67564?w=1400&h=700&fit=crop&auto=format&q=75') center/cover;
   }
   .quote-photo p{font-size:clamp(18px,2.6vw,26px);color:#fff;max-width:680px;font-family:'Unbounded',sans-serif;font-weight:600;line-height:1.35;}
   .quote-photo p b{color:var(--lav);}
@@ -143,7 +148,8 @@
   /* signup */
   .signup-section{background:var(--card-bg);}
   .signup-wrap{display:grid;grid-template-columns:0.9fr 1.1fr;gap:48px;align-items:stretch;}
-  .signup-img{border-radius:24px;background:linear-gradient(135deg,var(--peach),var(--lav));min-height:100%;}
+  .signup-img{border-radius:24px;background:linear-gradient(135deg,var(--peach),var(--lav));min-height:100%;overflow:hidden;}
+  .signup-img img{width:100%;height:100%;min-height:100%;object-fit:cover;display:block;}
   .signup-info h2{font-size:clamp(24px,3.4vw,32px);margin-bottom:14px;}
   .signup-info p{font-size:14px;color:#4a4a55;margin-bottom:14px;}
   .signup-info ul{list-style:none;font-size:13px;color:#4a4a55;}
@@ -343,7 +349,7 @@
 
 <section id="signup" class="signup-section">
   <div class="wrap signup-wrap">
-    <div class="signup-img"></div>
+    <div class="signup-img"><img src="https://images.unsplash.com/photo-1490645935967-10de6ba17061?w=800&h=1000&fit=crop&auto=format&q=75" alt="Здоровое питание — тарелка с овощами" loading="lazy"></div>
     <div style="display:grid;grid-template-columns:1fr 1.15fr;gap:32px;align-items:start;">
       <div class="signup-info">
         <span class="eyebrow-tag">Запись на курс</span>
