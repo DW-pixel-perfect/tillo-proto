@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TILLO — медиа про тело и сознание (вариант 2)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;600;700;800;900&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#0f0e14;
+    --muted:#6b6f7a;
+    --purple:#7c3aed;
+    --purple-deep:#4c1d95;
+    --purple-text:#3b1874;
+    --peach:#ffb473;
+    --pink:#ff8fc6;
+    --mint:#7fe8d6;
+    --lav:#b9a6ff;
+    --card-bg:#f4f3f7;
+    --card-dark:#131019;
+    --white:#ffffff;
+    --maxw:1240px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{
+    font-family:'Manrope', sans-serif;
+    color:var(--ink);
+    background:var(--white);
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3,h4,.wordmark{
+    font-family:'Unbounded', sans-serif;
+    font-weight:800;
+    letter-spacing:-0.01em;
+    line-height:1.05;
+  }
+  a{color:inherit;text-decoration:none;}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 40px;}
+  .pill{
+    display:inline-flex;align-items:center;gap:8px;
+    background:var(--purple);color:#fff;
+    font-family:'Manrope',sans-serif;font-weight:700;font-size:14px;
+    padding:13px 24px;border-radius:999px;border:none;cursor:pointer;
+  }
+  .pill.ghost{background:var(--ink);color:#fff;}
+  .pill.light{background:#fff;color:var(--ink);}
+  .eyebrow-tag{
+    font-size:11px;font-weight:700;color:var(--purple);
+    text-transform:uppercase;letter-spacing:0.04em;
+  }
+
+  /* header */
+  header{position:sticky;top:0;z-index:60;background:rgba(255,255,255,0);transition:background .25s ease, box-shadow .25s ease, backdrop-filter .25s ease;}
+  header.scrolled{background:rgba(255,255,255,0.9);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);box-shadow:0 1px 0 rgba(15,14,20,0.08);}
+  .nav{display:flex;align-items:center;justify-content:space-between;padding:26px 0;gap:24px;}
+  .logo-lockup{display:flex;align-items:center;gap:12px;}
+  .logo{font-family:'Unbounded',sans-serif;font-weight:800;font-size:26px;letter-spacing:-0.02em;}
+  .logo-chip{font-size:11px;color:var(--muted);background:var(--card-bg);border-radius:999px;padding:6px 12px;white-space:nowrap;}
+  .nav ul{list-style:none;display:flex;gap:26px;font-size:13px;font-weight:600;}
+  .nav ul li a:hover{color:var(--purple);}
+  .nav-social{display:flex;gap:10px;}
+  .nav-social a{
+    width:30px;height:30px;border-radius:50%;background:var(--card-bg);
+    display:flex;align-items:center;justify-content:center;color:var(--ink);
+  }
+  .nav-social svg{width:14px;height:14px;}
+
+  /* blob background */
+  .blob-wrap{position:relative;overflow:hidden;padding-bottom:90px;}
+  .blob-bg{
+    position:absolute;inset:0;z-index:-1;
+    background:
+      radial-gradient(48% 60% at 8% 20%, var(--peach) 0%, transparent 60%),
+      radial-gradient(45% 55% at 75% 10%, var(--pink) 0%, transparent 60%),
+      radial-gradient(55% 65% at 95% 55%, var(--lav) 0%, transparent 60%),
+      radial-gradient(40% 50% at 15% 85%, var(--mint) 0%, transparent 60%),
+      linear-gradient(180deg,#fff 0%, #fff 100%);
+    opacity:0.85;filter:blur(2px);
+  }
+  .blob-bg::after{
+    content:"";position:absolute;left:0;right:0;bottom:0;height:120px;
+    background:#fff;border-radius:50% 50% 0 0/100px 100px 0 0;
+  }
+
+  section{padding:70px 0;}
+
+  .hero-grid{display:grid;grid-template-columns:1.3fr 1fr;gap:60px;padding-top:50px;align-items:start;}
+  .hero-feature h1{font-size:clamp(28px,3.4vw,40px);margin:16px 0 18px;}
+  .hero-feature p.lead{font-size:15px;color:#3a3a44;max-width:460px;margin-bottom:20px;}
+  .hero-feature .meta{font-size:12px;color:var(--muted);}
+  .hero-side{display:flex;flex-direction:column;gap:26px;}
+  .hero-side-item h3{font-family:'Unbounded',sans-serif;font-weight:700;font-size:16px;margin:8px 0 6px;line-height:1.25;}
+  .hero-side-item p{font-size:13px;color:#4a4a55;}
+  .hero-side-item .meta{font-size:11px;color:var(--muted);margin-top:4px;}
+
+  .section-head{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:36px;gap:20px;flex-wrap:wrap;}
+  .section-head h2{font-size:clamp(28px,4.2vw,42px);}
+  .section-head .pill{font-size:13px;padding:11px 20px;}
+
+  /* fresh grid */
+  .fresh-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;}
+  .fresh-card{
+    background:var(--white);border:1px solid #ececef;border-radius:20px;
+    padding:22px;display:flex;flex-direction:column;min-height:340px;
+  }
+  .fresh-card .meta-row{display:flex;justify-content:space-between;font-size:11px;color:var(--muted);margin-bottom:14px;}
+  .fresh-card .meta-row .eyebrow-tag{font-size:11px;}
+  .fresh-card h3{font-family:'Unbounded',sans-serif;font-weight:700;font-size:16px;margin-bottom:8px;line-height:1.25;}
+  .fresh-card p{font-size:13px;color:#4a4a55;margin-bottom:16px;}
+  .fresh-card .img{
+    margin-top:auto;width:100%;aspect-ratio:16/10;border-radius:14px;
+    background:linear-gradient(135deg,var(--peach),var(--pink));
+  }
+  .fresh-card.dark{background:var(--card-dark);color:#fff;border:none;justify-content:space-between;}
+  .fresh-card.dark h3{color:#fff;font-size:26px;text-transform:uppercase;}
+  .fresh-card.dark p{color:rgba(255,255,255,0.65);}
+  .fresh-card.dark .pill{align-self:flex-start;}
+
+  /* guides list */
+  .guide-row{
+    display:flex;gap:24px;align-items:center;background:var(--white);
+    border:1px solid #ececef;border-radius:18px;padding:18px;margin-bottom:16px;
+  }
+  .guide-row .thumb{
+    width:130px;height:96px;border-radius:14px;flex:0 0 auto;
+    background:linear-gradient(135deg,var(--lav),var(--mint));
+  }
+  .guide-row .meta-row{display:flex;justify-content:space-between;font-size:11px;color:var(--muted);margin-bottom:8px;gap:16px;}
+  .guide-row h3{font-family:'Unbounded',sans-serif;font-weight:700;font-size:18px;margin-bottom:6px;}
+  .guide-row p{font-size:13px;color:#4a4a55;}
+
+  /* courses */
+  .courses-wrap{position:relative;}
+  .course-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;}
+  .course-card{
+    background:var(--white);border:1px solid #ececef;border-radius:20px;
+    padding:20px;display:flex;flex-direction:column;
+  }
+  .course-card .meta{font-size:11px;color:var(--muted);margin-bottom:10px;}
+  .course-card h3{font-family:'Unbounded',sans-serif;font-weight:700;font-size:18px;margin-bottom:8px;line-height:1.2;}
+  .course-card p{font-size:13px;color:#4a4a55;margin-bottom:12px;}
+  .course-card .tags{display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap;}
+  .course-card .tags span{font-size:11px;background:var(--card-bg);color:var(--purple-text);padding:4px 10px;border-radius:999px;font-weight:600;}
+  .course-card .img{width:100%;aspect-ratio:16/10;border-radius:14px;margin-bottom:16px;background:linear-gradient(135deg,var(--mint),var(--lav));}
+  .course-card .pill{align-self:flex-start;}
+
+  /* partnership dark card */
+  .partner-card{
+    background:linear-gradient(120deg,var(--card-dark) 0%, #1c1526 100%);
+    border-radius:28px;padding:56px;color:#fff;
+    display:grid;grid-template-columns:1.4fr 1fr;gap:32px;align-items:center;
+  }
+  .partner-card .eyebrow-tag{color:var(--lav);}
+  .partner-card h2{font-size:clamp(24px,3.4vw,36px);margin:12px 0 14px;}
+  .partner-card h2 b{color:var(--lav);font-weight:800;}
+  .partner-card p{font-size:14px;color:rgba(255,255,255,0.65);max-width:440px;margin-bottom:24px;}
+  .partner-card .actions{display:flex;gap:12px;flex-wrap:wrap;}
+  .partner-card .pill.ghost{background:var(--purple);}
+
+  /* subscribe */
+  .subscribe{background:var(--card-bg);border-radius:28px;text-align:center;padding:70px 40px;}
+  .subscribe h2{font-size:clamp(26px,4vw,40px);margin-bottom:12px;}
+  .subscribe p{font-size:14px;color:var(--muted);margin-bottom:28px;}
+  .subscribe-form{display:flex;gap:10px;justify-content:center;max-width:440px;margin:0 auto 16px;flex-wrap:wrap;}
+  .subscribe-form input{
+    flex:1;min-width:220px;font-family:'Manrope',sans-serif;font-size:14px;
+    padding:14px 20px;border-radius:999px;border:1px solid #e2e2e6;background:#fff;color:var(--ink);
+  }
+  .subscribe-form input:focus{outline:2px solid var(--purple);}
+  .subscribe-note{font-size:12px;color:var(--muted);}
+  .subscribe-note a{color:var(--purple);font-weight:700;}
+  .subscribe-success{display:none;font-size:14px;color:var(--purple-text);font-weight:700;}
+
+  /* contact dark card */
+  .contact-card{
+    background:var(--card-dark);border-radius:24px;padding:32px 36px;color:#fff;
+    display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap;margin-top:24px;
+  }
+  .contact-card h3{font-size:12px;color:rgba(255,255,255,0.55);font-weight:700;text-transform:uppercase;letter-spacing:0.03em;margin-bottom:8px;}
+  .contact-card .mail{font-family:'Unbounded',sans-serif;font-weight:800;font-size:26px;color:var(--lav);}
+  .contact-card p{font-size:12px;color:rgba(255,255,255,0.5);margin-top:6px;}
+
+  /* footer */
+  footer{padding:70px 0 40px;}
+  .footer-grid{display:flex;justify-content:space-between;gap:40px;flex-wrap:wrap;padding-bottom:30px;}
+  .footer-grid nav ul{list-style:none;display:flex;gap:22px;flex-wrap:wrap;font-size:13px;font-weight:600;color:var(--muted);}
+  .legal{
+    display:flex;justify-content:space-between;font-size:11px;color:var(--muted);
+    padding:24px 0 0;border-top:1px solid #ececef;flex-wrap:wrap;gap:8px;
+  }
+
+  body.modal-open{overflow:hidden;}
+  .modal-overlay{
+    position:fixed;inset:0;background:rgba(15,14,20,0.55);
+    display:flex;align-items:center;justify-content:center;
+    z-index:200;opacity:0;pointer-events:none;transition:opacity .2s ease;padding:20px;
+  }
+  .modal-overlay.open{opacity:1;pointer-events:auto;}
+  .modal{
+    background:#fff;border-radius:24px;max-width:440px;width:100%;
+    padding:40px;position:relative;max-height:90vh;overflow-y:auto;
+    transform:translateY(12px);transition:transform .2s ease;
+  }
+  .modal-overlay.open .modal{transform:translateY(0);}
+  .modal-close{
+    position:absolute;top:18px;right:18px;width:32px;height:32px;
+    background:var(--card-bg);border:none;border-radius:50%;font-size:18px;cursor:pointer;color:var(--ink);line-height:1;
+  }
+  .modal h3{font-size:22px;margin-bottom:10px;padding-right:30px;}
+  .modal-sub{font-size:13px;color:var(--muted);margin-bottom:22px;}
+  .modal-form label{display:block;font-size:12px;color:var(--muted);margin-bottom:14px;font-weight:600;}
+  .modal-form input,.modal-form select,.modal-form textarea{
+    display:block;width:100%;margin-top:6px;
+    font-family:'Manrope',sans-serif;font-size:14px;color:var(--ink);
+    background:var(--card-bg);border:1px solid transparent;border-radius:10px;padding:12px 14px;resize:vertical;
+  }
+  .modal-form input:focus,.modal-form select:focus,.modal-form textarea:focus{outline:none;border-color:var(--purple);}
+  .checkbox-row{display:flex;align-items:flex-start;gap:8px;font-size:11px;margin-bottom:20px;color:var(--muted);}
+  .checkbox-row input{width:auto;margin-top:3px;}
+  .modal-form button[type="submit"]{width:100%;margin-top:4px;justify-content:center;}
+  #modalSuccess,#promoModalSuccess,#courseModalSuccess{text-align:center;padding:16px 0 4px;}
+  #modalSuccess h3,#promoModalSuccess h3,#courseModalSuccess h3{padding-right:0;}
+
+  @media(max-width:900px){
+    .hero-grid,.fresh-grid,.course-grid,.partner-card{grid-template-columns:1fr;}
+    .nav ul{display:none;}
+    .guide-row{flex-direction:column;align-items:stretch;}
+    .guide-row .thumb{width:100%;height:140px;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <div class="logo-lockup">
+      <a class="logo" href="tillo_journal_media_home_v2.html">tillo</a>
+      <span class="logo-chip">медиа про тело и сознание</span>
+    </div>
+    <ul>
+      <li><a href="#news">Новости</a></li>
+      <li><a href="#guides">Гайды</a></li>
+      <li><a href="tillo_journal_category_articles.html">Статьи</a></li>
+      <li><a href="#courses">Курсы</a></li>
+      <li><a href="#webinars">Вебинары</a></li>
+      <li><a href="tillo_journal_homepage.html">Сотрудничество</a></li>
+      <li><a href="tillo_journal_contacts.html">Контакты</a></li>
+    </ul>
+    <div class="nav-social">
+      <a href="#" aria-label="Instagram">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg>
+      </a>
+      <a href="#" aria-label="Telegram">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M21.5 3.5 2.7 10.9c-1.1.4-1.1 1 0 1.4l4.7 1.5 1.8 5.6c.2.6.5.7.9.3l2.5-2.4 4.8 3.6c.6.4 1.1.2 1.3-.5l3.3-15.4c.3-.9-.2-1.4-1.5-.9Z"/></svg>
+      </a>
+    </div>
+  </div>
+</header>
+
+<div class="blob-wrap">
+  <div class="blob-bg"></div>
+  <div class="wrap hero-grid">
+    <div class="hero-feature">
+      <span class="eyebrow-tag">Новостной материал</span>
+      <h1><a href="tillo_journal_article_news.html">Новое исследование связало жаркие ночи с потерей сна</a></h1>
+      <p class="lead">Учёные сопоставили данные о температуре по ночам и качестве сна — разбираем, что именно нашли и что с этим делать.</p>
+      <div class="meta">Игорь Земцов · 23 июля 2026</div>
+    </div>
+    <div class="hero-side">
+      <div class="hero-side-item">
+        <span class="eyebrow-tag">Свежее</span>
+        <h3><a href="tillo_journal_article_news.html">Почему все снова говорят о креатине</a></h3>
+        <p>Разбираем, что изменилось в исследованиях и почему добавка снова в центре внимания.</p>
+        <div class="meta">23 июля 2026</div>
+      </div>
+      <div class="hero-side-item">
+        <span class="eyebrow-tag">Свежее</span>
+        <h3><a href="tillo_journal_category_news.html">Учёные нашли след ультрапереработанной еды в крови</a></h3>
+        <p>Новый маркер помогает отследить, сколько такой еды реально попадает в организм.</p>
+        <div class="meta">21 июля 2026</div>
+      </div>
+      <div class="hero-side-item">
+        <span class="eyebrow-tag">Свежее</span>
+        <h3><a href="tillo_journal_category_news.html">Популярный wellness-тренд может быть бесполезен</a></h3>
+        <p>Что показало новое исследование и стоит ли всё ещё тратить на это время.</p>
+        <div class="meta">20 июля 2026</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="wrap" id="news" style="margin-top:40px;">
+    <div class="section-head">
+      <h2>Свежее</h2>
+      <a class="pill light" href="tillo_journal_category_news.html">Все новости →</a>
+    </div>
+    <div class="fresh-grid">
+      <div class="fresh-card">
+        <div class="meta-row"><span class="eyebrow-tag">Свежее</span><span>23 июля 2026</span></div>
+        <h3><a href="tillo_journal_article_news.html">Почему все снова говорят о креатине</a></h3>
+        <p>Разбираем, что изменилось в исследованиях и почему добавка снова в центре внимания.</p>
+        <div class="img"></div>
+      </div>
+      <div class="fresh-card">
+        <div class="meta-row"><span class="eyebrow-tag">Свежее</span><span>21 июля 2026</span></div>
+        <h3>Учёные нашли след ультрапереработанной еды в крови</h3>
+        <p>Новый маркер помогает отследить, сколько такой еды реально попадает в организм.</p>
+        <div class="img"></div>
+      </div>
+      <div class="fresh-card">
+        <div class="meta-row"><span class="eyebrow-tag">Свежее</span><span>20 июля 2026</span></div>
+        <h3>Популярный wellness-тренд может быть бесполезен</h3>
+        <p>Что показало новое исследование и стоит ли всё ещё тратить на это время.</p>
+        <div class="img"></div>
+      </div>
+      <div class="fresh-card">
+        <div class="meta-row"><span class="eyebrow-tag">Свежее</span><span>19 июля 2026</span></div>
+        <h3>Новые данные объясняют, почему люди переедают после недосыпа</h3>
+        <p>Гормональный механизм, который включается уже после одной бессонной ночи.</p>
+        <div class="img"></div>
+      </div>
+      <div class="fresh-card">
+        <div class="meta-row"><span class="eyebrow-tag">Свежее</span><span>18 июля 2026</span></div>
+        <h3>Почему кофе перестаёт бодрить, если пить его каждый день</h3>
+        <p>Как формируется толерантность и что с этим можно сделать.</p>
+        <div class="img"></div>
+      </div>
+      <div class="fresh-card dark">
+        <div>
+          <span class="eyebrow-tag" style="color:var(--lav);">Курсы</span>
+          <h3>Курсы Tillo</h3>
+          <p>Практические программы от практикующих специалистов — с разбором кейсов и обратной связью.</p>
+        </div>
+        <a class="pill" href="#courses">Онлайн-программы →</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<section id="guides">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Гайды</h2>
+      <a class="pill ghost" href="tillo_journal_category_guides.html">Исследовать →</a>
+    </div>
+    <div class="guide-list">
+      <a class="guide-row" href="tillo_journal_article_sleep_guide.html" style="cursor:pointer;">
+        <div class="thumb"></div>
+        <div>
+          <div class="meta-row"><span class="eyebrow-tag">Гайды</span><span>Сон</span></div>
+          <h3>Как заснуть за 10 секунд, за минуту или за две</h3>
+          <p>Техники дыхания, мышечной релаксации и визуализации против бессонницы — инструкция Tillo.</p>
+        </div>
+      </a>
+      <div class="guide-row">
+        <div class="thumb"></div>
+        <div>
+          <div class="meta-row"><span class="eyebrow-tag">Гайды</span><span>Сон</span></div>
+          <h3>Что такое циркадные ритмы</h3>
+          <p>Разбираем, как устроены внутренние часы организма и почему их сбой отражается на всём — от сна до аппетита.</p>
+        </div>
+      </div>
+      <div class="guide-row">
+        <div class="thumb"></div>
+        <div>
+          <div class="meta-row"><span class="eyebrow-tag">Гайды</span><span>Сон</span></div>
+          <h3>Как сон влияет на вес</h3>
+          <p>Что говорят исследования о связи недосыпа с перееданием и метаболизмом.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="courses" class="courses-wrap">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Курсы</h2>
+      <a class="pill ghost" href="#courses">Больше курсов →</a>
+    </div>
+    <div class="course-grid">
+      <div class="course-card">
+        <a href="tillo_journal_course_habits.html" style="display:block;">
+          <div class="img"></div>
+          <div class="meta">4 модуля · 13 уроков</div>
+          <h3>Полезные привычки 2.0</h3>
+          <p>Система, которая помогает увидеть своё питание и превратить полезные действия в привычку</p>
+        </a>
+        <div class="tags"><span>Здоровье</span><span>Питание</span></div>
+        <a class="pill" href="tillo_journal_course_habits.html#signup">Записаться</a>
+      </div>
+      <div class="course-card">
+        <div class="img"></div>
+        <div class="meta">07–27 июля 2026</div>
+        <h3>Боли в тазобедренном и коленном суставах</h3>
+        <p>Причины, диагностика, лечение</p>
+        <div class="tags"><span>Здоровье</span><span>Лечение</span></div>
+        <button class="pill" data-open-course>Записаться</button>
+      </div>
+      <div class="course-card">
+        <div class="img"></div>
+        <div class="meta">07–27 июля 2026</div>
+        <h3>Кинезиологический семинар</h3>
+        <p>Практический интенсив с разбором кейсов</p>
+        <div class="tags"><span>Здоровье</span><span>Питание</span></div>
+        <button class="pill" data-open-course>Записаться</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="webinars">
+  <div class="wrap">
+    <div class="partner-card">
+      <div>
+        <span class="eyebrow-tag">Для брендов и экспертов</span>
+        <h2>Работаете <b>с брендом</b> или как эксперт <b>в теме здоровья?</b></h2>
+        <p>Мы делаем нативные интеграции, работаем с экспертами и брендами в сфере здоровья — от идеи до публикации.</p>
+        <div class="actions">
+          <a class="pill ghost" href="tillo_journal_homepage.html">Узнать про партнёрство →</a>
+          <button class="pill light" data-open-promo>Рассказать о продукте</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="subscribe">
+      <h2>Не пропустите лучшее</h2>
+      <p>Раз в неделю — самые важные материалы о здоровье и wellness. Без спама.</p>
+      <form class="subscribe-form" id="subscribeForm">
+        <input type="email" name="email" required placeholder="Ваш e-mail">
+        <button type="submit" class="pill">Подписаться →</button>
+      </form>
+      <p class="subscribe-note" id="subscribeNote">Или читайте нас в <a href="#">Telegram</a> и <a href="#">Instagram</a></p>
+      <p class="subscribe-success" id="subscribeSuccess">Готово — проверьте почту, чтобы подтвердить подписку.</p>
+    </div>
+
+    <div class="contact-card">
+      <div>
+        <h3>Связаться с нами</h3>
+        <div class="mail">hello@tillo.life</div>
+        <p>По вопросам партнёрства и сотрудничества</p>
+      </div>
+      <button class="pill" data-open-modal="Стать партнером">Стать партнером →</button>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-grid">
+      <a class="logo" href="tillo_journal_media_home_v2.html">tillo</a>
+      <nav>
+        <ul>
+          <li><a href="#news">Новости</a></li>
+          <li><a href="#guides">Гайды</a></li>
+          <li><a href="tillo_journal_category_articles.html">Статьи</a></li>
+          <li><a href="#courses">Курсы</a></li>
+          <li><a href="#webinars">Вебинары</a></li>
+          <li><a href="tillo_journal_homepage.html">Сотрудничество</a></li>
+          <li><a href="tillo_journal_contacts.html">Контакты</a></li>
+        </ul>
+      </nav>
+    </div>
+    <div class="legal">
+      <div>Публичная оферта &nbsp; Политика конфиденциальности &nbsp; Согласие на обработку персональных данных</div>
+      <div>© Tillo Media, 2026</div>
+    </div>
+  </div>
+</footer>
+
+<!-- Стать партнером -->
+<div class="modal-overlay" id="modalOverlay" aria-hidden="true">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <button class="modal-close" id="modalClose" aria-label="Закрыть">&times;</button>
+    <div id="modalFormWrap">
+      <h3 id="modalTitle">Стать партнером</h3>
+      <p class="modal-sub" id="modalSub">Оставьте заявку — пришлём до 5 идей интеграции для вашего бренда</p>
+      <form id="leadForm" class="modal-form">
+        <label>Имя<input type="text" name="name" required placeholder="Как к вам обращаться"></label>
+        <label>Бренд / компания<input type="text" name="company" placeholder="Название бренда"></label>
+        <label>Email или Telegram<input type="text" name="contact" required placeholder="you@example.com или @telegram"></label>
+        <label>Что интересует
+          <select name="format">
+            <option value="">Не выбрано</option>
+            <option>Нативная интеграция</option>
+            <option>Промо продукта</option>
+            <option>Баннерная реклама</option>
+            <option>Создание Reels и совместных публикаций</option>
+            <option>Работа со специалистами</option>
+            <option>Сотрудничество с брендами</option>
+            <option>Посев</option>
+          </select>
+        </label>
+        <label>Комментарий<textarea name="message" rows="3" placeholder="Коротко о задаче или продукте"></textarea></label>
+        <label class="checkbox-row"><input type="checkbox" name="consent" required><span>Согласен(-на) с политикой конфиденциальности и обработкой персональных данных</span></label>
+        <button type="submit" class="pill ghost">Отправить заявку</button>
+      </form>
+    </div>
+    <div id="modalSuccess" hidden>
+      <h3>Заявка отправлена</h3>
+      <p class="modal-sub">Спасибо! Мы свяжемся с вами в течение 1–2 дней и пришлём до 5 идей интеграции.</p>
+      <button class="pill" id="modalDone">Готово</button>
+    </div>
+  </div>
+</div>
+
+<!-- Рассказать о продукте -->
+<div class="modal-overlay" id="promoModalOverlay" aria-hidden="true">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="promoModalTitle">
+    <button class="modal-close" id="promoModalClose" aria-label="Закрыть">&times;</button>
+    <div id="promoFormWrap">
+      <h3 id="promoModalTitle">Рассказать о продукте</h3>
+      <p class="modal-sub">Оставьте заявку — свяжемся с вами и расскажем о стоимости размещения</p>
+      <form id="promoForm" class="modal-form">
+        <label>Имя<input type="text" name="name" required placeholder="Как к вам обращаться"></label>
+        <label>Email или Telegram<input type="text" name="contact" required placeholder="you@example.com или @telegram"></label>
+        <label>Что хотите сделать
+          <select name="goal">
+            <option value="">Не выбрано</option>
+            <option>Прорекламировать себя</option>
+            <option>Прорекламировать свой продукт</option>
+            <option>Разместить рекламу бренда</option>
+            <option>Другое</option>
+          </select>
+        </label>
+        <label>Комментарий<textarea name="message" rows="3" placeholder="Коротко о себе или продукте"></textarea></label>
+        <label class="checkbox-row"><input type="checkbox" name="consent" required><span>Согласен(-на) с политикой конфиденциальности и обработкой персональных данных</span></label>
+        <button type="submit" class="pill ghost">Отправить заявку</button>
+      </form>
+    </div>
+    <div id="promoModalSuccess" hidden>
+      <h3>Заявка отправлена</h3>
+      <p class="modal-sub">Спасибо! Мы свяжемся с вами и расскажем о стоимости размещения.</p>
+      <button class="pill" id="promoModalDone">Готово</button>
+    </div>
+  </div>
+</div>
+
+<!-- Записаться на курс -->
+<div class="modal-overlay" id="courseModalOverlay" aria-hidden="true">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="courseModalTitle">
+    <button class="modal-close" id="courseModalClose" aria-label="Закрыть">&times;</button>
+    <div id="courseFormWrap">
+      <h3 id="courseModalTitle">Записаться на курс</h3>
+      <p class="modal-sub">Оставьте контакты — пришлём программу и стоимость</p>
+      <form id="courseForm" class="modal-form">
+        <label>Имя<input type="text" name="name" required placeholder="Как к вам обращаться"></label>
+        <label>Email или Telegram<input type="text" name="contact" required placeholder="you@example.com или @telegram"></label>
+        <label>Комментарий<textarea name="message" rows="3" placeholder="Что хотите узнать о курсе"></textarea></label>
+        <label class="checkbox-row"><input type="checkbox" name="consent" required><span>Согласен(-на) с политикой конфиденциальности и обработкой персональных данных</span></label>
+        <button type="submit" class="pill ghost">Отправить заявку</button>
+      </form>
+    </div>
+    <div id="courseModalSuccess" hidden>
+      <h3>Заявка отправлена</h3>
+      <p class="modal-sub">Спасибо! Мы пришлём программу и стоимость на указанные контакты.</p>
+      <button class="pill" id="courseModalDone">Готово</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  var headerEl = document.querySelector('header');
+  function onScroll(){
+    if(window.scrollY > 40){ headerEl.classList.add('scrolled'); }
+    else{ headerEl.classList.remove('scrolled'); }
+  }
+  window.addEventListener('scroll', onScroll, {passive:true});
+  onScroll();
+
+  var subForm = document.getElementById('subscribeForm');
+  var subNote = document.getElementById('subscribeNote');
+  var subSuccess = document.getElementById('subscribeSuccess');
+  subForm.addEventListener('submit', function(e){
+    e.preventDefault();
+    subForm.style.display = 'none';
+    subNote.style.display = 'none';
+    subSuccess.style.display = 'block';
+  });
+
+  (function(){
+    var overlay = document.getElementById('modalOverlay');
+    var title = document.getElementById('modalTitle');
+    var sub = document.getElementById('modalSub');
+    var formWrap = document.getElementById('modalFormWrap');
+    var success = document.getElementById('modalSuccess');
+    var form = document.getElementById('leadForm');
+    var closeBtn = document.getElementById('modalClose');
+    var doneBtn = document.getElementById('modalDone');
+    var defaultSub = 'Оставьте заявку — пришлём до 5 идей интеграции для вашего бренда';
+
+    function openModal(btn){
+      var triggerText = btn.getAttribute('data-open-modal');
+      title.textContent = triggerText || 'Стать партнером';
+      sub.textContent = defaultSub;
+      formWrap.hidden = false;
+      success.hidden = true;
+      form.reset();
+      overlay.classList.add('open');
+      overlay.setAttribute('aria-hidden', 'false');
+      document.body.classList.add('modal-open');
+    }
+    function closeModal(){
+      overlay.classList.remove('open');
+      overlay.setAttribute('aria-hidden', 'true');
+      document.body.classList.remove('modal-open');
+    }
+    document.querySelectorAll('[data-open-modal]').forEach(function(btn){
+      btn.addEventListener('click', function(){ openModal(btn); });
+    });
+    closeBtn.addEventListener('click', closeModal);
+    overlay.addEventListener('click', function(e){ if(e.target === overlay){ closeModal(); } });
+    document.addEventListener('keydown', function(e){ if(e.key === 'Escape'){ closeModal(); } });
+    form.addEventListener('submit', function(e){
+      e.preventDefault(); formWrap.hidden = true; success.hidden = false;
+    });
+    doneBtn.addEventListener('click', closeModal);
+  })();
+
+  function wireSimpleModal(triggerAttr, overlayId, formId, formWrapId, successId, closeId, doneId){
+    var overlay = document.getElementById(overlayId);
+    var formWrap = document.getElementById(formWrapId);
+    var success = document.getElementById(successId);
+    var form = document.getElementById(formId);
+    var closeBtn = document.getElementById(closeId);
+    var doneBtn = document.getElementById(doneId);
+
+    function open(e){
+      if(e) e.preventDefault();
+      formWrap.hidden = false; success.hidden = true; form.reset();
+      overlay.classList.add('open');
+      overlay.setAttribute('aria-hidden', 'false');
+      document.body.classList.add('modal-open');
+    }
+    function close(){
+      overlay.classList.remove('open');
+      overlay.setAttribute('aria-hidden', 'true');
+      document.body.classList.remove('modal-open');
+    }
+    document.querySelectorAll('[' + triggerAttr + ']').forEach(function(btn){
+      btn.addEventListener('click', open);
+    });
+    closeBtn.addEventListener('click', close);
+    overlay.addEventListener('click', function(e){ if(e.target === overlay){ close(); } });
+    document.addEventListener('keydown', function(e){ if(e.key === 'Escape'){ close(); } });
+    form.addEventListener('submit', function(e){
+      e.preventDefault(); formWrap.hidden = true; success.hidden = false;
+    });
+    doneBtn.addEventListener('click', close);
+  }
+
+  wireSimpleModal('data-open-promo', 'promoModalOverlay', 'promoForm', 'promoFormWrap', 'promoModalSuccess', 'promoModalClose', 'promoModalDone');
+  wireSimpleModal('data-open-course', 'courseModalOverlay', 'courseForm', 'courseFormWrap', 'courseModalSuccess', 'courseModalClose', 'courseModalDone');
+</script>
+</body>
+</html>
