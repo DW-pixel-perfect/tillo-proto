@@ -212,6 +212,46 @@
   .webinar-body p{font-size:14px;color:#4a4a55;max-width:560px;}
   .webinar-body p b{color:var(--purple-text);}
 
+  /* tariffs */
+  .tariff-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;align-items:stretch;}
+  .tariff-card{
+    background:var(--white);border:1px solid #ececef;border-radius:24px;padding:30px 28px;
+    display:flex;flex-direction:column;position:relative;
+  }
+  .tariff-card .badge{
+    position:absolute;top:-12px;left:28px;background:var(--purple);color:#fff;
+    font-size:11px;font-weight:700;padding:5px 12px;border-radius:999px;
+  }
+  .tariff-card h3{font-size:18px;margin-bottom:14px;line-height:1.2;}
+  .tariff-card .price{font-family:'Unbounded',sans-serif;font-weight:800;font-size:30px;line-height:1;margin-bottom:6px;}
+  .tariff-card .price-note{font-size:12px;color:var(--muted);margin-bottom:22px;}
+  .tariff-card ul{list-style:none;font-size:14px;color:#3a3a44;margin-bottom:26px;flex:1;}
+  .tariff-card li{position:relative;padding:7px 0 7px 26px;}
+  .tariff-card li::before{
+    content:"";position:absolute;left:0;top:12px;width:14px;height:14px;border-radius:50%;
+    background:var(--lav);
+  }
+  .tariff-card li::after{
+    content:"";position:absolute;left:4px;top:15px;width:5px;height:3px;
+    border-left:2px solid #fff;border-bottom:2px solid #fff;transform:rotate(-45deg);
+  }
+  .tariff-card .pill{align-self:stretch;justify-content:center;}
+  .tariff-card.featured{background:var(--card-dark);color:#fff;border-color:var(--card-dark);}
+  .tariff-card.featured ul{color:rgba(255,255,255,0.82);}
+  .tariff-card.featured .price-note{color:rgba(255,255,255,0.55);}
+  .tariff-card.featured li::before{background:var(--purple);}
+  .installment{
+    display:flex;align-items:center;gap:16px;margin-top:28px;
+    background:var(--card-bg);border-radius:20px;padding:20px 26px;
+  }
+  .installment-ico{
+    width:44px;height:44px;border-radius:14px;background:#fff;color:var(--purple);flex:0 0 auto;
+    display:flex;align-items:center;justify-content:center;
+  }
+  .installment-ico svg{width:22px;height:22px;}
+  .installment b{display:block;font-size:15px;margin-bottom:2px;}
+  .installment span{font-size:13px;color:#4a4a55;}
+
   /* modal (free webinar) */
   body.modal-open{overflow:hidden;}
   .modal-overlay{
@@ -493,20 +533,67 @@
   </div>
 </section>
 
-<section id="signup" class="signup-section" style="background:var(--white);">
+<section id="tariffs">
+  <div class="wrap">
+    <div class="section-head"><h2>Тарифы</h2></div>
+    <div class="tariff-grid">
+
+      <div class="tariff-card">
+        <h3>Тариф 1</h3>
+        <div class="price">00&nbsp;000&nbsp;₽</div>
+        <div class="price-note">за курс целиком</div>
+        <ul>
+          <li>Состав тарифа уточняется</li>
+        </ul>
+        <a class="pill ghost" href="#signup" data-tariff="Тариф 1">Выбрать тариф</a>
+      </div>
+
+      <div class="tariff-card featured">
+        <h3>Тариф 2</h3>
+        <div class="price">00&nbsp;000&nbsp;₽</div>
+        <div class="price-note">за курс целиком</div>
+        <ul>
+          <li>Состав тарифа уточняется</li>
+        </ul>
+        <a class="pill" href="#signup" data-tariff="Тариф 2">Выбрать тариф</a>
+      </div>
+
+      <div class="tariff-card">
+        <h3>Тариф 3</h3>
+        <div class="price">00&nbsp;000&nbsp;₽</div>
+        <div class="price-note">за курс целиком</div>
+        <ul>
+          <li>Состав тарифа уточняется</li>
+        </ul>
+        <a class="pill ghost" href="#signup" data-tariff="Тариф 3">Выбрать тариф</a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section id="signup" class="signup-section">
   <div class="wrap signup-wrap">
       <div class="signup-info">
         <span class="eyebrow-tag">Запись на курс</span>
         <h2>Оставьте заявку — пришлём программу и стоимость</h2>
-        <p>Старт курса — 6 ноября. После заявки менеджер свяжется с вами и расскажет про стоимость и условия участия.</p>
+        <p>Старт курса — 6 ноября. После заявки менеджер свяжется с вами, расскажет про тарифы и условия участия.</p>
       </div>
-      <div class="signup-card" style="background:var(--card-bg);">
+      <div class="signup-card">
         <div id="signupFormWrap">
           <h3>Записаться на курс</h3>
           <form id="signupForm" class="modal-form">
             <label>Имя<input type="text" name="name" required placeholder="Как к вам обращаться"></label>
             <label>Email или Telegram<input type="text" name="contact" required placeholder="you@example.com или @telegram"></label>
-            <label>Комментарий<textarea name="message" rows="3" placeholder="Что хотите узнать о курсе"></textarea></label>
+            <label>Тариф
+              <select name="tariff">
+                <option value="">Не выбрано</option>
+                <option>Тариф 1</option>
+                <option>Тариф 2</option>
+                <option>Тариф 3</option>
+              </select>
+            </label>
+            <label>Комментарий<textarea name="message" rows="3" placeholder="Вопрос или пожелание"></textarea></label>
             <label class="checkbox-row"><input type="checkbox" name="consent" required><span>Согласен(-на) с политикой конфиденциальности и обработкой персональных данных</span></label>
             <button type="submit" class="pill ghost">Отправить заявку</button>
           </form>
@@ -590,6 +677,15 @@
     formWrap.hidden = false;
     success.hidden = true;
     form.reset();
+  });
+
+  // выбор тарифа на карточке -> подставляется в форму записи
+  document.querySelectorAll('[data-tariff]').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      formWrap.hidden = false;
+      success.hidden = true;
+      form.querySelector('[name="tariff"]').value = btn.getAttribute('data-tariff');
+    });
   });
 
   (function(){
