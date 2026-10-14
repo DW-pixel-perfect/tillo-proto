@@ -51,7 +51,7 @@
     background:linear-gradient(135deg, var(--card-dark) 0%, #2a1f3d 45%, #3a2350 75%, var(--card-dark) 100%);
     padding-top:90px;
   }
-  .hero-banner-inner{position:relative;padding:60px 40px 56px;color:#fff;}
+  .hero-banner-inner{position:relative;width:100%;padding:60px 40px 56px;color:#fff;}
   .hero-banner h1{font-size:clamp(34px,5.4vw,58px);margin:14px 0 16px;max-width:760px;}
   .hero-banner .lead{font-size:16px;color:rgba(255,255,255,0.85);max-width:560px;margin-bottom:26px;}
   .hero-meta{display:flex;gap:14px;flex-wrap:wrap;font-size:12px;color:#fff;margin-bottom:28px;}
@@ -545,6 +545,10 @@
         <blockquote>Нюхать чипсы, есть яблоки )</blockquote>
         <figcaption><span class="ava">М</span>Марианна</figcaption>
       </figure>
+      <figure class="review">
+        <blockquote>Вебинар послушала, спасибо большое! Было, на самом деле, очень полезно. Большим откровением для меня стало то, что сладкое может хотеться больше, если мне в целом «не вкусно». Теперь чуть больше стараюсь наблюдать за вкусовым насыщением своим.</blockquote>
+        <figcaption><span class="ava">М</span>Мария Журавлева</figcaption>
+      </figure>
     </div>
   </div>
 </section>
@@ -566,7 +570,7 @@
         <a class="pill ghost" href="#signup" data-tariff="Самостоятельный">Выбрать тариф</a>
       </div>
 
-      <div class="tariff-card">
+      <div class="tariff-card featured">
         <h3>С обратной связью</h3>
         <div class="price">19&nbsp;900&nbsp;₽</div>
         <div class="price-note">за курс целиком</div>
@@ -574,10 +578,10 @@
           <li>Всё из тарифа «Самостоятельный»</li>
           <li>Проверка заданий куратором</li>
         </ul>
-        <a class="pill ghost" href="#signup" data-tariff="С обратной связью куратора">Выбрать тариф</a>
+        <a class="pill" href="#signup" data-tariff="С обратной связью куратора">Выбрать тариф</a>
       </div>
 
-      <div class="tariff-card featured">
+      <div class="tariff-card">
         <span class="badge">Только 3 места</span>
         <h3>С погружением</h3>
         <div class="price">40&nbsp;000&nbsp;₽</div>
@@ -586,7 +590,7 @@
           <li>Всё из тарифа «С обратной связью»</li>
           <li>3 индивидуальные консультации с нутрициологом Екатериной Черепановой</li>
         </ul>
-        <a class="pill" href="#signup" data-tariff="С погружением — 3 консультации с нутрициологом (только 3 места)">Выбрать тариф</a>
+        <a class="pill ghost" href="#signup" data-tariff="С погружением — 3 консультации с нутрициологом (только 3 места)">Выбрать тариф</a>
       </div>
 
     </div>

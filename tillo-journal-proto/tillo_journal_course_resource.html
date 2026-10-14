@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ресурс: сон, энергия, восстановление — курс TILLO</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;600;700;800;900&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#0f0e14;
+    --muted:#6b6f7a;
+    --purple:#7c3aed;
+    --purple-text:#3b1874;
+    --peach:#ffb473;
+    --pink:#ff8fc6;
+    --mint:#7fe8d6;
+    --lav:#b9a6ff;
+    --card-bg:#f4f3f7;
+    --card-dark:#131019;
+    --white:#ffffff;
+    --maxw:1240px;
+    --narrow:820px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'Manrope', sans-serif;color:var(--ink);background:var(--white);line-height:1.55;-webkit-font-smoothing:antialiased;}
+  h1,h2,h3,h4,.wordmark{font-family:'Unbounded', sans-serif;font-weight:800;letter-spacing:-0.01em;line-height:1.08;}
+  a{color:inherit;text-decoration:none;}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 40px;}
+  .narrow{max-width:var(--narrow);margin:0 auto;padding:0 40px;}
+  .pill{display:inline-flex;align-items:center;gap:8px;background:var(--purple);color:#fff;font-family:'Manrope',sans-serif;font-weight:700;font-size:14px;padding:13px 24px;border-radius:999px;border:none;cursor:pointer;}
+  .pill.ghost{background:var(--ink);color:#fff;}
+  .pill.light{background:#fff;color:var(--ink);border:1px solid rgba(255,255,255,0.4);}
+  .eyebrow-tag{font-size:11px;font-weight:700;color:var(--purple);text-transform:uppercase;letter-spacing:0.04em;}
+
+  header{position:sticky;top:0;z-index:60;background:rgba(255,255,255,0);transition:background .25s ease, box-shadow .25s ease, backdrop-filter .25s ease;}
+  header.scrolled{background:rgba(255,255,255,0.9);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);box-shadow:0 1px 0 rgba(15,14,20,0.08);}
+  .nav{display:flex;align-items:center;justify-content:space-between;padding:26px 0;gap:24px;}
+  .logo{font-family:'Unbounded',sans-serif;font-weight:800;font-size:26px;letter-spacing:-0.02em;}
+  .nav ul{list-style:none;display:flex;gap:26px;font-size:13px;font-weight:600;}
+  .nav ul li a:hover{color:var(--purple);}
+  header.on-image{position:absolute;top:0;left:0;right:0;background:transparent;}
+  header.on-image .logo,header.on-image .nav ul{color:#fff;}
+  header.on-image.scrolled{position:sticky;background:rgba(255,255,255,0.9);}
+  header.on-image.scrolled .logo,header.on-image.scrolled .nav ul{color:var(--ink);}
+
+  /* hero image banner */
+  .hero-banner{
+    position:relative;min-height:560px;display:flex;align-items:flex-end;
+    background:linear-gradient(135deg, var(--card-dark) 0%, #2a1f3d 45%, #3a2350 75%, var(--card-dark) 100%);
+    padding-top:90px;
+  }
+  .hero-banner-inner{position:relative;width:100%;padding:60px 40px 56px;color:#fff;}
+  .hero-banner h1{font-size:clamp(34px,5.4vw,58px);margin:14px 0 16px;max-width:760px;}
+  .hero-banner .lead{font-size:16px;color:rgba(255,255,255,0.85);max-width:560px;margin-bottom:26px;}
+  .hero-meta{display:flex;gap:14px;flex-wrap:wrap;font-size:12px;color:#fff;margin-bottom:28px;}
+  .hero-meta span{background:rgba(255,255,255,0.14);border:1px solid rgba(255,255,255,0.25);padding:8px 16px;border-radius:999px;backdrop-filter:blur(4px);}
+  .hero-actions{display:flex;gap:12px;flex-wrap:wrap;}
+  .breadcrumbs{font-size:12px;color:rgba(255,255,255,0.7);position:relative;margin-bottom:10px;}
+  .breadcrumbs a{color:#fff;font-weight:600;}
+
+  section{padding:70px 0;}
+  .narrow h2{font-size:clamp(24px,3.4vw,34px);margin-bottom:18px;}
+  .narrow p{font-size:15px;color:#3a3a44;margin-bottom:16px;}
+
+  /* intro split with image */
+  .intro-grid{display:grid;grid-template-columns:1fr 1fr;gap:52px;align-items:center;}
+  .intro-img{aspect-ratio:4/3;border-radius:24px;background:url('https://images.unsplash.com/photo-1490818387583-1baba5e638af?w=900&h=700&fit=crop&auto=format&q=75') center/cover;}
+  .intro-text h2{font-size:clamp(24px,3.4vw,34px);margin-bottom:16px;}
+  .intro-text p{font-size:15px;color:#3a3a44;margin-bottom:14px;}
+
+  /* program: image module cards */
+  .section-head{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:34px;gap:16px;flex-wrap:wrap;}
+  .section-head h2{font-size:clamp(26px,4vw,38px);}
+  .module-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:24px;}
+  .module-card{background:var(--white);border:1px solid #ececef;border-radius:22px;overflow:hidden;}
+  .module-card .cover{height:150px;position:relative;background-size:cover;background-position:center;}
+  .module-card .cover::before{
+    content:"";position:absolute;inset:0;
+    background:linear-gradient(0deg, rgba(10,8,16,0.65) 0%, rgba(10,8,16,0.05) 60%);
+  }
+  .module-card .cover .mod-num{
+    position:absolute;left:18px;bottom:14px;color:#fff;font-family:'Unbounded',sans-serif;
+    font-weight:800;font-size:13px;text-transform:uppercase;letter-spacing:0.04em;z-index:1;
+  }
+  .module-card .cover.m1{background-image:url('https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=800&h=400&fit=crop&auto=format&q=70');}
+  .module-card .cover.m2{background-image:url('https://images.unsplash.com/photo-1512058564366-18510be2db19?w=800&h=400&fit=crop&auto=format&q=70');}
+  .module-card .cover.m3{background-image:url('https://images.unsplash.com/photo-1490474418585-ba9bad8fd0ea?w=800&h=400&fit=crop&auto=format&q=70');}
+  .module-card .cover.m4{background-image:url('https://images.unsplash.com/photo-1542838132-92c53300491e?w=800&h=400&fit=crop&auto=format&q=70');}
+  .module-card .body{padding:24px 26px 28px;}
+  .module-card h3{font-size:19px;margin-bottom:8px;}
+  .module-card .mod-role{font-size:13px;color:var(--muted);margin-bottom:20px;}
+  .timeline{position:relative;padding-left:26px;}
+  .timeline::before{content:"";position:absolute;left:7px;top:6px;bottom:6px;width:2px;background:#e6e5ec;}
+  .tl-item{position:relative;padding-bottom:18px;}
+  .tl-item:last-child{padding-bottom:0;}
+  .tl-item::before{
+    content:"";position:absolute;left:-26px;top:2px;width:16px;height:16px;border-radius:50%;
+    background:#fff;border:3px solid var(--purple);
+  }
+  .tl-item .ltitle{font-weight:700;font-size:13.5px;margin-bottom:3px;}
+  .tl-item .ldesc{font-size:12.5px;color:#5a5a64;}
+
+  /* tools as icon cards */
+  .tools-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+  .tool-card{background:var(--card-bg);border-radius:20px;padding:26px 22px;}
+  .tool-icon{
+    width:48px;height:48px;border-radius:14px;background:var(--white);
+    display:flex;align-items:center;justify-content:center;margin-bottom:16px;color:var(--purple);
+  }
+  .tool-icon svg{width:22px;height:22px;}
+  .tool-card h4{font-size:14.5px;margin-bottom:6px;}
+  .tool-card p{font-size:12.5px;color:var(--muted);margin:0;}
+
+  /* transformation stepper */
+  .stepper{display:flex;flex-direction:column;gap:0;}
+  .step-row{display:flex;gap:24px;align-items:flex-start;padding:22px 0;border-top:1px dashed #ddd;}
+  .step-row:first-child{border-top:none;}
+  .step-row .step-media{
+    width:64px;height:64px;border-radius:18px;flex:0 0 auto;
+    display:flex;align-items:center;justify-content:center;
+    font-family:'Unbounded',sans-serif;font-weight:800;font-size:18px;color:#fff;
+  }
+  .step-row:nth-child(1) .step-media{background:linear-gradient(135deg,var(--peach),var(--pink));}
+  .step-row:nth-child(2) .step-media{background:linear-gradient(135deg,var(--pink),var(--lav));}
+  .step-row:nth-child(3) .step-media{background:linear-gradient(135deg,var(--lav),var(--mint));}
+  .step-row:nth-child(4) .step-media{background:linear-gradient(135deg,var(--mint),var(--peach));}
+  .step-row:nth-child(5) .step-media{background:linear-gradient(135deg,var(--peach),var(--lav));}
+  .step-row:nth-child(6) .step-media{background:linear-gradient(135deg,var(--pink),var(--mint));}
+  .step-row h4{font-size:16px;margin-bottom:4px;}
+  .step-row p{font-size:13px;color:#4a4a55;margin:0;}
+
+  /* quote with photo bg */
+  .quote-photo{
+    position:relative;border-radius:28px;overflow:hidden;min-height:280px;
+    display:flex;align-items:center;justify-content:center;text-align:center;padding:50px;
+    background:
+      linear-gradient(0deg, rgba(10,8,16,0.72), rgba(10,8,16,0.55)),
+      url('https://images.unsplash.com/photo-1543362906-acfc16c67564?w=1400&h=700&fit=crop&auto=format&q=75') center/cover;
+  }
+  .quote-photo p{font-size:clamp(18px,2.6vw,26px);color:#fff;max-width:680px;font-family:'Unbounded',sans-serif;font-weight:600;line-height:1.35;}
+  .quote-photo p b{color:var(--lav);}
+
+  /* signup */
+  .signup-section{background:var(--card-bg);}
+  .signup-wrap{display:grid;grid-template-columns:1fr 1.15fr;gap:48px;align-items:start;}
+  .signup-info h2{font-size:clamp(24px,3.4vw,32px);margin-bottom:14px;}
+  .signup-info p{font-size:14px;color:#4a4a55;margin-bottom:14px;}
+  .signup-info ul{list-style:none;font-size:13px;color:#4a4a55;}
+  .signup-info li{padding:6px 0;}
+  .signup-card{background:#fff;border-radius:24px;padding:32px;}
+  .signup-card h3{font-size:18px;margin-bottom:18px;}
+  .modal-form label{display:block;font-size:12px;color:var(--muted);margin-bottom:14px;font-weight:600;}
+  .modal-form input,.modal-form select,.modal-form textarea{
+    display:block;width:100%;margin-top:6px;font-family:'Manrope',sans-serif;font-size:14px;color:var(--ink);
+    background:#f4f3f7;border:1px solid transparent;border-radius:10px;padding:12px 14px;resize:vertical;
+  }
+  .modal-form input:focus,.modal-form select:focus,.modal-form textarea:focus{outline:none;border-color:var(--purple);}
+  .checkbox-row{display:flex;align-items:flex-start;gap:8px;font-size:11px;margin-bottom:20px;color:var(--muted);}
+  .checkbox-row input{width:auto;margin-top:3px;}
+  .modal-form button[type="submit"]{width:100%;margin-top:4px;justify-content:center;}
+  #signupSuccess{text-align:center;padding:20px 0;}
+  #signupSuccess h3{margin-bottom:10px;}
+  #signupSuccess p{font-size:13px;color:var(--muted);margin-bottom:18px;}
+
+  footer{padding:60px 0 40px;border-top:1px solid #ececef;margin-top:20px;}
+  .footer-grid{display:flex;justify-content:space-between;gap:40px;flex-wrap:wrap;padding-bottom:30px;}
+  .footer-grid nav ul{list-style:none;display:flex;gap:22px;flex-wrap:wrap;font-size:13px;font-weight:600;color:var(--muted);}
+  .legal{display:flex;justify-content:space-between;font-size:11px;color:var(--muted);padding:24px 0 0;border-top:1px solid #ececef;flex-wrap:wrap;gap:8px;}
+
+  /* presenter (hero) */
+  .presenter{
+    display:flex;align-items:center;gap:16px;flex-wrap:wrap;
+    background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.22);
+    border-radius:20px;padding:14px 18px;margin-bottom:24px;max-width:640px;
+    backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);
+  }
+  .presenter-ava{
+    width:52px;height:52px;border-radius:50%;flex:0 0 auto;
+    background:linear-gradient(135deg,var(--peach),var(--pink));
+    display:flex;align-items:center;justify-content:center;
+    font-family:'Unbounded',sans-serif;font-weight:800;font-size:15px;color:#fff;
+  }
+  .presenter-info{flex:1 1 220px;min-width:0;}
+  .presenter-by{font-size:12px;color:rgba(255,255,255,0.7);margin-bottom:2px;}
+  .presenter-by b{color:#fff;}
+  .presenter-name{font-size:15px;font-weight:700;color:#fff;line-height:1.3;}
+  .presenter-name span{display:block;font-size:12px;font-weight:600;color:var(--lav);margin-top:2px;}
+  .presenter-social{display:flex;gap:8px;}
+  .presenter-social a{
+    width:38px;height:38px;border-radius:50%;background:rgba(255,255,255,0.16);color:#fff;
+    display:flex;align-items:center;justify-content:center;transition:background .2s ease;
+  }
+  .presenter-social a:hover{background:var(--purple);}
+  .presenter-social svg{width:17px;height:17px;}
+
+  /* free webinar */
+  .webinar-section{padding:44px 0 0;}
+  .webinar-card{
+    display:grid;grid-template-columns:auto 1fr auto;gap:36px;align-items:center;
+    background:linear-gradient(120deg,#f3effe 0%,#fdeef6 60%,#fff3e8 100%);
+    border-radius:28px;padding:34px 40px;
+  }
+  .webinar-date{
+    background:var(--card-dark);color:#fff;border-radius:20px;padding:18px 22px;text-align:center;min-width:104px;
+  }
+  .webinar-date .d{display:block;font-family:'Unbounded',sans-serif;font-weight:800;font-size:38px;line-height:1;}
+  .webinar-date .m{display:block;font-size:13px;font-weight:700;margin-top:4px;}
+  .webinar-date .t{display:block;font-size:12px;color:var(--lav);font-weight:700;margin-top:8px;}
+  .webinar-body h2{font-size:clamp(19px,2.3vw,26px);margin:8px 0 10px;line-height:1.2;}
+  .webinar-body p{font-size:14px;color:#4a4a55;max-width:560px;}
+  .webinar-body p b{color:var(--purple-text);}
+
+  /* modal (free webinar) */
+  body.modal-open{overflow:hidden;}
+  .modal-overlay{
+    position:fixed;inset:0;background:rgba(15,14,20,0.55);
+    display:flex;align-items:center;justify-content:center;
+    z-index:200;opacity:0;pointer-events:none;transition:opacity .2s ease;padding:20px;
+  }
+  .modal-overlay.open{opacity:1;pointer-events:auto;}
+  .modal{
+    background:#fff;border-radius:24px;max-width:440px;width:100%;
+    padding:40px;position:relative;max-height:90vh;overflow-y:auto;
+    transform:translateY(12px);transition:transform .2s ease;
+  }
+  .modal-overlay.open .modal{transform:translateY(0);}
+  .modal-close{
+    position:absolute;top:18px;right:18px;width:32px;height:32px;
+    background:var(--card-bg);border:none;border-radius:50%;font-size:18px;cursor:pointer;color:var(--ink);line-height:1;
+  }
+  .modal h3{font-size:20px;margin-bottom:10px;padding-right:30px;line-height:1.25;}
+  .modal-sub{font-size:13px;color:var(--muted);margin-bottom:22px;}
+  #webinarSuccess{text-align:center;padding:16px 0 4px;}
+  #webinarSuccess h3{padding-right:0;}
+
+  @media(max-width:900px){
+    .nav ul{display:none;}
+    .intro-grid,.module-grid,.tools-grid,.signup-wrap,.tariff-grid{grid-template-columns:1fr;}
+    .webinar-card{grid-template-columns:1fr;gap:20px;padding:28px 24px;}
+    .webinar-date{display:flex;align-items:baseline;justify-content:center;gap:10px;padding:14px 18px;}
+    .webinar-date .d{font-size:28px;}
+    .webinar-date .m,.webinar-date .t{margin-top:0;}
+    .review-grid{column-count:1;}
+    .installment{align-items:flex-start;}
+  }
+  @media(min-width:901px) and (max-width:1100px){
+    .review-grid{column-count:2;}
+  }
+
+  /* hormones course */
+  .hero-banner h1 .h1-sub{display:block;font-size:0.56em;color:var(--lav);margin-top:12px;letter-spacing:-0.005em;}
+  .facts{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+  .fact{background:var(--card-bg);border-radius:22px;padding:26px 24px;}
+  .fact b{display:block;font-family:'Unbounded',sans-serif;font-weight:800;font-size:clamp(26px,3vw,36px);line-height:1;color:var(--purple-text);}
+  .fact span{display:block;font-size:13px;color:var(--muted);margin-top:10px;}
+  .fact.dark{background:var(--card-dark);}
+  .fact.dark b{color:#fff;}
+  .fact.dark span{color:rgba(255,255,255,0.6);}
+  .speaker-grid{display:grid;grid-template-columns:0.8fr 1.2fr;gap:56px;align-items:center;}
+  .speaker-photo{
+    position:relative;aspect-ratio:4/5;border-radius:28px;overflow:hidden;
+    background:linear-gradient(145deg,var(--peach) 0%,var(--pink) 55%,var(--lav) 100%);
+    display:flex;align-items:center;justify-content:center;
+    font-family:'Unbounded',sans-serif;font-weight:800;font-size:72px;color:rgba(255,255,255,0.92);
+  }
+  .speaker-photo small{
+    position:absolute;left:18px;bottom:16px;font-family:'Manrope',sans-serif;font-size:11px;font-weight:700;
+    background:rgba(15,14,20,0.55);color:#fff;padding:5px 12px;border-radius:999px;
+  }
+  .speaker-text h2{font-size:clamp(26px,3.6vw,40px);margin:10px 0 6px;}
+  .speaker-role{font-size:15px;font-weight:700;color:var(--purple-text);margin-bottom:22px;}
+  .speaker-list{list-style:none;display:flex;flex-direction:column;gap:12px;margin-bottom:6px;}
+  .speaker-list li{position:relative;padding-left:26px;font-size:15px;color:#3a3a44;}
+  .speaker-list li::before{content:"";position:absolute;left:0;top:8px;width:10px;height:10px;border-radius:50%;background:linear-gradient(135deg,var(--peach),var(--pink));}
+  .module-card .cover.g1{background:linear-gradient(135deg,#ffb473,#ff8fc6);}
+  .module-card .cover.g2{background:linear-gradient(135deg,#ff8fc6,#b9a6ff);}
+  .module-card .cover.g3{background:linear-gradient(135deg,#b9a6ff,#7fe8d6);}
+  .module-card .cover.g4{background:linear-gradient(135deg,#7fe8d6,#ffb473);}
+  .module-card .cover.g5{background:linear-gradient(135deg,#ffb473,#b9a6ff);}
+  .module-card .cover.g6{background:linear-gradient(135deg,#7c3aed,#ff8fc6);}
+  .tools-grid.four{grid-template-columns:repeat(4,1fr);}
+  .speaker-photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 18%;display:block;}
+  .webinar-date .t.times{font-size:12px;line-height:1.35;}
+  @media(max-width:900px){
+    .facts{grid-template-columns:1fr 1fr;}
+    .speaker-grid{grid-template-columns:1fr;gap:28px;}
+    .speaker-photo{aspect-ratio:1/1;max-width:420px;}
+    .tools-grid.four{grid-template-columns:1fr;}
+  }
+  @media(min-width:901px) and (max-width:1100px){
+    .tools-grid.four{grid-template-columns:repeat(2,1fr);}
+  }
+</style>
+</head>
+<body>
+
+<header class="on-image">
+  <div class="wrap nav">
+    <a class="logo" href="tillo_journal_media_home_v3.html">tillo</a>
+    <ul>
+      <li><a href="tillo_journal_media_home_v3.html#about">О медиа</a></li>
+      <li><a href="tillo_journal_media_home_v3.html#courses">Курсы</a></li>
+      <li><a href="tillo_journal_media_home_v3.html#wellbeing">Wellbeing для компаний</a></li>
+      <li><a href="tillo_journal_contacts.html">Контакты</a></li>
+    </ul>
+  </div>
+</header>
+
+<div class="hero-banner">
+  <div class="wrap hero-banner-inner">
+    <div class="breadcrumbs"><a href="tillo_journal_media_home_v3.html">Главная</a> / <a href="tillo_journal_media_home_v3.html#courses">Курсы</a> / Ресурс</div>
+    <span class="eyebrow-tag" style="color:var(--lav);">Курс · Сон и восстановление</span>
+    <h1>Ресурс<span class="h1-sub">Сон, энергия, восстановление</span></h1>
+    <p class="lead">Практический курс с Ириной Галеевой о том, как наладить сон, восстановить энергию и не доводить себя до выгорания.</p>
+    <div class="presenter">
+      <div class="presenter-ava">ИГ</div>
+      <div class="presenter-info">
+        <div class="presenter-by">Курс проводит <b>Tillo</b></div>
+        <div class="presenter-name">Ирина Галеева<span>Врач невролог, сомнолог</span></div>
+      </div>
+    </div>
+    <div class="hero-meta">
+      <span>4 модуля · 2 месяца</span>
+      <span>8 онлайн-встреч раз в неделю</span>
+      <span>Комьюнити: чат, опросы, проверка домашних заданий куратором</span>
+    </div>
+    <div class="hero-actions">
+      <a class="pill" href="#signup">Записаться на курс →</a>
+      <a class="pill light" href="#program">Смотреть программу</a>
+    </div>
+  </div>
+</div>
+
+<section class="webinar-section" id="webinar">
+  <div class="wrap">
+    <div class="webinar-card">
+      <div class="webinar-date"><span class="d">19</span><span class="m">октября</span><span class="t times">11:00 и 18:00<br>по Москве</span></div>
+      <div class="webinar-body">
+        <span class="eyebrow-tag">Вебинар Ирины Галеевой</span>
+        <h2>«Упадок сил, выгорание или гормональный сбой? Как понять, что происходит с организмом»</h2>
+        <p>Вебинар пройдёт <b>19 октября</b> в <b>11:00</b> и в <b>18:00</b> по московскому времени — выберите удобное при записи.</p>
+      </div>
+      <button class="pill" data-open-webinar>Записаться на вебинар →</button>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap intro-grid">
+    <div class="intro-text">
+      <span class="eyebrow-tag">Как устроен курс</span>
+      <h2>Фокус на маленьких действиях</h2>
+      <p>На курсе вы разберетесь, что влияет на ваше состояние, и внедрите небольшие научно обоснованные привычки, которые помогут лучше восстанавливаться даже ведя очень насыщенную жизнь.</p>
+      <p>Наша цель — не сделать вас максимально продуктивными, а помочь лучше понимать своё состояние и выстроить работающую систему восстановления.</p>
+      <p><b>Одна встреча — одно-два конкретных действия, которые можно попробовать в своей жизни.</b></p>
+    </div>
+    <div class="facts">
+      <div class="fact dark"><b>4</b><span>модуля</span></div>
+      <div class="fact"><b>2</b><span>месяца</span></div>
+      <div class="fact"><b>8</b><span>онлайн-встреч, раз в неделю</span></div>
+      <div class="fact dark"><b>1–2</b><span>конкретных действия на каждой встрече</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="speaker" style="background:var(--card-bg);">
+  <div class="wrap speaker-grid">
+    <div class="speaker-photo"><img src="img/galeeva.jpg" alt="Ирина Галеева, врач невролог, сомнолог" loading="lazy"></div>
+    <div class="speaker-text">
+      <span class="eyebrow-tag">Спикер</span>
+      <h2>Ирина Галеева</h2>
+      <div class="speaker-role">Врач невролог, сомнолог</div>
+      <ul class="speaker-list">
+        <li>Главный специалист клиники доказательной медицины Фомина</li>
+        <li>Научный редактор издательства Эксмо и автор книги «Вынос мозга»</li>
+        <li>Автор блога о медицине «Доктор Галеева»</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="program">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Программа курса</h2>
+      <a class="pill ghost" href="#signup">Записаться →</a>
+    </div>
+    <div class="module-grid">
+
+      <div class="module-card">
+        <div class="cover g1"><span class="mod-num">Модуль 1</span></div>
+        <div class="body">
+          <h3>Аудит ресурса</h3>
+          <p class="mod-role">Провести чекап своего состояния, понять биологические механизмы усталости и заложить фундамент для качественного восстановления.</p>
+          <div class="timeline">
+            <div class="tl-item"><div class="ltitle">Диагностика выгорания и его отличие от депрессии</div><div class="ldesc">Тесты с доказанной точностью на выгорание, тревогу, депрессию.</div></div>
+            <div class="tl-item"><div class="ltitle">Особые виды выгорания — родительское, академическое, нейроотличное</div><div class="ldesc">Причины и способы защиты. Тесты на СДВГ и РАС.</div></div>
+            <div class="tl-item"><div class="ltitle">Диагностика нарушений и качества сна</div><div class="ldesc">Тесты на качество и нарушения сна (гиперсомнию, апноэ сна, синдром беспокойных ног).</div></div>
+            <div class="tl-item"><div class="ltitle">Оценка качества образа жизни</div><div class="ldesc">Критерии достаточной физической активности.</div></div>
+            <div class="tl-item"><div class="ltitle">Физиологические причины</div><div class="ldesc">Составление чекапа здоровья в зависимости от пола и возраста.</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="module-card">
+        <div class="cover g2"><span class="mod-num">Модуль 2</span></div>
+        <div class="body">
+          <h3>Приемы для нормализации сна</h3>
+          <div class="timeline">
+            <div class="tl-item"><div class="ltitle">Биологические часы и циркадные ритмы</div><div class="ldesc">Определение собственного хронотипа. Методы для коррекции режима для сов и жаворонков.</div></div>
+            <div class="tl-item"><div class="ltitle">Факторы, которые влияют на сон</div><div class="ldesc">Практические советы, как обустроить спальню и построить свой режим для улучшения ночного сна.</div></div>
+            <div class="tl-item"><div class="ltitle">Методы для простого пробуждения</div><div class="ldesc">Как легко встать и чувствовать себя бодрее?</div></div>
+            <div class="tl-item"><div class="ltitle">Методы для быстрого засыпания</div><div class="ldesc">Главные приемы сомнологов для простого засыпания, практические лайфхаки и советы из разных методов психотерапии.</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="module-card">
+        <div class="cover g3"><span class="mod-num">Модуль 3</span></div>
+        <div class="body">
+          <h3>Профилактика выгорания и дневной стресс-менеджмент</h3>
+          <p class="mod-role">Найти и обезвредить главные «утечки» энергии в течение рабочего дня. Защитить нервную систему от перегрузок.</p>
+          <div class="timeline">
+            <div class="tl-item"><div class="ltitle">Микро-восстановление днем</div><div class="ldesc">Почему нельзя работать 8 часов подряд. Техника «протоколов отдыха» между рабочими спринтами.</div></div>
+            <div class="tl-item"><div class="ltitle">Границы и фильтрация входящего шума</div><div class="ldesc">Как информационный перегруз истощает мозг. Цифровой детокс и экологичное умение говорить «нет» лишним задачам.</div></div>
+            <div class="tl-item"><div class="ltitle">Синдром отличника и токсичная продуктивность</div><div class="ldesc">Как перфекционизм и внутренний критик крадут у нас право на отдых. Работа с установками.</div></div>
+            <div class="tl-item"><div class="ltitle">Личный тайм-менеджмент</div><div class="ldesc">Как планировать неделю с учетом ваших особенностей психики, а не только дедлайнов. Тайм-менеджмент для уже выгоревших людей, а также людей с нейроотличиями.</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="module-card">
+        <div class="cover g4"><span class="mod-num">Модуль 4</span></div>
+        <div class="body">
+          <h3>Долгосрочная стратегия устойчивости</h3>
+          <p class="mod-role">Закрепить привычки и создать систему защиты от будущих откатов.</p>
+          <div class="timeline">
+            <div class="tl-item"><div class="ltitle">Добавление физической активности</div><div class="ldesc">Мотивирующие данные о пользе спорта для продуктивности.</div></div>
+            <div class="tl-item"><div class="ltitle">Нормы физической активности</div><div class="ldesc">Критерии достаточной физической активности. Способы добавить физическую активность даже в самый плотный график.</div></div>
+            <div class="tl-item"><div class="ltitle">Скрытые причины, мешающие регулярно заниматься спортом</div><div class="ldesc">Методы их преодоления.</div></div>
+            <div class="tl-item"><div class="ltitle">Личная психотерапия</div><div class="ldesc">Самые эффективные методы с точки зрения доказательной медицины.</div></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section id="tools" style="background:var(--card-bg);">
+  <div class="wrap">
+    <div class="section-head"><h2>Что входит в курс</h2></div>
+    <div class="tools-grid">
+      <div class="tool-card">
+        <div class="tool-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M8 2v4M16 2v4M3 10h18"/></svg></div>
+        <h4>8 онлайн-встреч</h4>
+        <p>Раз в неделю в течение двух месяцев. Одна встреча — одно-два конкретных действия.</p>
+      </div>
+      <div class="tool-card">
+        <div class="tool-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
+        <h4>Комьюнити</h4>
+        <p>Поддержка в чате, опросы и общение с участниками.</p>
+      </div>
+      <div class="tool-card">
+        <div class="tool-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg></div>
+        <h4>Куратор</h4>
+        <p>Проверка домашних заданий и мотивация от куратора.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="signup" class="signup-section" style="background:var(--white);">
+  <div class="wrap signup-wrap">
+      <div class="signup-info">
+        <span class="eyebrow-tag">Запись на курс</span>
+        <h2>Оставьте заявку — пришлём программу и стоимость</h2>
+        <p>После заявки менеджер свяжется с вами и расскажет про стоимость, условия участия и старт курса.</p>
+      </div>
+      <div class="signup-card" style="background:var(--card-bg);">
+        <div id="signupFormWrap">
+          <h3>Записаться на курс</h3>
+          <form id="signupForm" class="modal-form">
+            <label>Имя<input type="text" name="name" required placeholder="Как к вам обращаться"></label>
+            <label>Email или Telegram<input type="text" name="contact" required placeholder="you@example.com или @telegram"></label>
+            <label>Комментарий<textarea name="message" rows="3" placeholder="Что хотите узнать о курсе"></textarea></label>
+            <label class="checkbox-row"><input type="checkbox" name="consent" required><span>Согласен(-на) с политикой конфиденциальности и обработкой персональных данных</span></label>
+            <button type="submit" class="pill ghost">Отправить заявку</button>
+          </form>
+        </div>
+        <div id="signupSuccess" hidden>
+          <h3>Заявка отправлена</h3>
+          <p>Спасибо! Пришлём программу и стоимость на указанные контакты.</p>
+          <button class="pill" id="signupDone">Готово</button>
+        </div>
+      </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-grid">
+      <a class="logo" href="tillo_journal_media_home_v3.html">tillo</a>
+      <nav>
+        <ul>
+          <li><a href="tillo_journal_media_home_v3.html#about">О медиа</a></li>
+          <li><a href="tillo_journal_media_home_v3.html#courses">Курсы</a></li>
+          <li><a href="tillo_journal_media_home_v3.html#wellbeing">Wellbeing для компаний</a></li>
+          <li><a href="tillo_journal_contacts.html">Контакты</a></li>
+        </ul>
+      </nav>
+    </div>
+    <div class="legal">
+      <div>Публичная оферта &nbsp; Политика конфиденциальности &nbsp; Согласие на обработку персональных данных</div>
+      <div>© Tillo Media, 2026</div>
+    </div>
+  </div>
+</footer>
+
+<!-- Вебинар -->
+<div class="modal-overlay" id="webinarOverlay" aria-hidden="true">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="webinarTitle">
+    <button class="modal-close" id="webinarClose" aria-label="Закрыть">&times;</button>
+    <div id="webinarFormWrap">
+      <h3 id="webinarTitle">Записаться на вебинар</h3>
+      <p class="modal-sub">19 октября · «Упадок сил, выгорание или гормональный сбой? Как понять, что происходит с организмом»</p>
+      <form id="webinarForm" class="modal-form">
+        <label>Имя<input type="text" name="name" required placeholder="Как к вам обращаться"></label>
+        <label>Email или Telegram<input type="text" name="contact" required placeholder="you@example.com или @telegram"></label>
+        <label>Время (по Москве)
+          <select name="time" required>
+            <option value="">Выберите время</option>
+            <option>11:00</option>
+            <option>18:00</option>
+          </select>
+        </label>
+        <label class="checkbox-row"><input type="checkbox" name="consent" required><span>Согласен(-на) с политикой конфиденциальности и обработкой персональных данных</span></label>
+        <button type="submit" class="pill ghost">Записаться</button>
+      </form>
+    </div>
+    <div id="webinarSuccess" hidden>
+      <h3>Вы записаны</h3>
+      <p class="modal-sub">Спасибо! Пришлём ссылку на вебинар на указанные контакты.</p>
+      <button class="pill" id="webinarDone">Готово</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  var headerEl = document.querySelector('header');
+  function onScroll(){
+    if(window.scrollY > 40){ headerEl.classList.add('scrolled'); }
+    else{ headerEl.classList.remove('scrolled'); }
+  }
+  window.addEventListener('scroll', onScroll, {passive:true});
+  onScroll();
+
+  var formWrap = document.getElementById('signupFormWrap');
+  var success = document.getElementById('signupSuccess');
+  var form = document.getElementById('signupForm');
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    formWrap.hidden = true;
+    success.hidden = false;
+  });
+  document.getElementById('signupDone').addEventListener('click', function(){
+    formWrap.hidden = false;
+    success.hidden = true;
+    form.reset();
+  });
+
+  (function(){
+    var overlay = document.getElementById('webinarOverlay');
+    var wWrap = document.getElementById('webinarFormWrap');
+    var wSuccess = document.getElementById('webinarSuccess');
+    var wForm = document.getElementById('webinarForm');
+
+    function openModal(){
+      wWrap.hidden = false;
+      wSuccess.hidden = true;
+      wForm.reset();
+      overlay.classList.add('open');
+      overlay.setAttribute('aria-hidden', 'false');
+      document.body.classList.add('modal-open');
+    }
+    function closeModal(){
+      overlay.classList.remove('open');
+      overlay.setAttribute('aria-hidden', 'true');
+      document.body.classList.remove('modal-open');
+    }
+    document.querySelectorAll('[data-open-webinar]').forEach(function(btn){
+      btn.addEventListener('click', openModal);
+    });
+    document.getElementById('webinarClose').addEventListener('click', closeModal);
+    document.getElementById('webinarDone').addEventListener('click', closeModal);
+    overlay.addEventListener('click', function(e){ if(e.target === overlay){ closeModal(); } });
+    document.addEventListener('keydown', function(e){ if(e.key === 'Escape'){ closeModal(); } });
+    wForm.addEventListener('submit', function(e){
+      e.preventDefault();
+      wWrap.hidden = true;
+      wSuccess.hidden = false;
+    });
+  })();
+</script>
+</body>
+</html>
