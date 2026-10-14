@@ -124,13 +124,19 @@
   .course-card .visual.v1{background:linear-gradient(135deg,var(--mint),var(--lav));}
   .course-card .visual.v2{background:linear-gradient(135deg,var(--peach),var(--pink));}
   .course-card .visual.v3{background:linear-gradient(135deg,var(--lav),var(--pink));}
+  .course-card .start{
+    position:absolute;top:14px;left:14px;background:#fff;color:var(--ink);
+    font-size:12px;font-weight:800;padding:7px 14px;border-radius:999px;
+  }
+  .course-card .start.tbd{background:rgba(255,255,255,0.6);font-weight:700;}
   .course-card .num{
     font-family:'Unbounded',sans-serif;font-weight:800;font-size:44px;line-height:1;
     color:rgba(255,255,255,0.92);letter-spacing:-0.02em;
   }
   .course-card .meta{font-size:12px;color:var(--muted);font-weight:600;margin-bottom:10px;}
   .course-card h3{font-size:19px;margin-bottom:10px;line-height:1.2;}
-  .course-card p{font-size:14px;color:#4a4a55;margin-bottom:16px;}
+  .course-card p{font-size:14px;color:#4a4a55;margin-bottom:14px;}
+  .course-card .speaker{font-size:12px;font-weight:700;color:var(--purple-text);margin-bottom:14px;}
   .course-card .tags{display:flex;gap:8px;margin-bottom:20px;flex-wrap:wrap;}
   .course-card .tags span{font-size:11px;background:var(--card-bg);color:var(--purple-text);padding:4px 10px;border-radius:999px;font-weight:600;}
   .course-card .pill{align-self:flex-start;margin-top:auto;}
@@ -280,29 +286,32 @@
     <div class="course-grid">
 
       <a class="course-card" href="tillo_journal_course_habits_v3.html">
-        <div class="visual v1"><span class="num">01</span></div>
+        <div class="visual v1"><span class="start">Старт 3 ноября</span><span class="num">01</span></div>
         <div class="meta">4 модуля · 13 уроков</div>
         <h3>Полезные привычки 2.0</h3>
         <p>Не очередная диета, а система: сначала увидеть своё питание, затем научиться строить рацион — и превратить полезные действия в привычку.</p>
+        <div class="speaker">Екатерина Черепанова · нутрициолог</div>
         <div class="tags"><span>Здоровье</span><span>Питание</span></div>
         <span class="pill">Подробнее о курсе →</span>
       </a>
 
-      <a class="course-card" href="tillo_journal_course_joints.html">
-        <div class="visual v2"><span class="num">02</span></div>
-        <div class="meta">07–27 июля 2026</div>
-        <h3>Боли в тазобедренном и коленном суставах</h3>
-        <p>Причины, диагностика, лечение: разбираем, откуда берутся боли в суставах и какие подходы к лечению существуют.</p>
-        <div class="tags"><span>Здоровье</span><span>Лечение</span></div>
+      <a class="course-card" href="tillo_journal_course_hormones.html">
+        <div class="visual v2"><span class="start">Старт 6 ноября</span><span class="num">02</span></div>
+        <div class="meta">5 недель · 15 уроков + бонус</div>
+        <h3>Гормоны и энергия. Женское здоровье без мифов</h3>
+        <p>Как работают гормоны, от чего зависят энергия и самочувствие и какие изменения в организме действительно требуют внимания.</p>
+        <div class="speaker">Ольга Крумкач · врач акушер-гинеколог</div>
+        <div class="tags"><span>Женское здоровье</span><span>Гормоны</span></div>
         <span class="pill">Подробнее о курсе →</span>
       </a>
 
-      <a class="course-card" href="tillo_journal_course_kinesiology.html">
-        <div class="visual v3"><span class="num">03</span></div>
-        <div class="meta">07–27 июля 2026</div>
-        <h3>Кинезиологический семинар</h3>
-        <p>Практический интенсив с разбором кейсов.</p>
-        <div class="tags"><span>Здоровье</span><span>Практика</span></div>
+      <a class="course-card" href="tillo_journal_course_resource.html">
+        <div class="visual v3"><span class="start tbd">Дата старта уточняется</span><span class="num">03</span></div>
+        <div class="meta">4 модуля · 2 месяца · 8 онлайн-встреч</div>
+        <h3>Ресурс: сон, энергия, восстановление</h3>
+        <p>Практический курс о том, как наладить сон, восстановить энергию и не доводить себя до выгорания.</p>
+        <div class="speaker">Ирина Галеева · врач невролог, сомнолог</div>
+        <div class="tags"><span>Сон</span><span>Восстановление</span></div>
         <span class="pill">Подробнее о курсе →</span>
       </a>
 
@@ -367,8 +376,8 @@
         <h4>Курсы</h4>
         <ul>
           <li><a href="tillo_journal_course_habits_v3.html">Полезные привычки 2.0</a></li>
-          <li><a href="tillo_journal_course_joints.html">Боли в суставах</a></li>
-          <li><a href="tillo_journal_course_kinesiology.html">Кинезиологический семинар</a></li>
+          <li><a href="tillo_journal_course_hormones.html">Гормоны и энергия</a></li>
+          <li><a href="tillo_journal_course_resource.html">Ресурс: сон, энергия, восстановление</a></li>
         </ul>
       </div>
       <div class="footer-col">
